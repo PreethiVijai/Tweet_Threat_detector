@@ -14,6 +14,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build App --file App/Dockerfile --tag gcr.io/${{ secrets.PROJECT_ID}}/app:${{GITHUB_RUN_NUMBER}}
+      run: docker build App --file App/Dockerfile --tag gcr.io/${{ secrets.PROJECT_ID}}/app:$GITHUB_SHA
     - name: Push the Docker image
-      run: docker push gcr.io/${{ secrets.PROJECT_ID}}/app:${{GITHUB_RUN_NUMBER}}
+      run: docker push gcr.io/${{ secrets.PROJECT_ID}}/app:$GITHUB_SHA
