@@ -14,7 +14,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Determine Version
+      run: version=$(date +%s)
     - name: Build the Docker image
-      run: docker build App --file App/Dockerfile --tag ${{ secrets.PROJECT_ID}}/app:$(date +%s)
+      run: docker build App --file App/Dockerfile --tag ${{ secrets.PROJECT_ID}}/app:${{version}}
     - name: Push the Docker image
-      run: docker push gcr.io/${{ secrets.PROJECT_ID}}/app:$(date +%s)
+      run: docker push gcr.io/${{ secrets.PROJECT_ID}}/app:${{version}}
