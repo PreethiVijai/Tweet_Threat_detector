@@ -11,11 +11,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    env:
-      version: $(date +%s)
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build App --file App/Dockerfile --tag gcr.io/${{ secrets.PROJECT_ID}}/app:$(date +%s)
+      run: docker build App --file App/Dockerfile --tag gcr.io/${{ secrets.PROJECT_ID}}/app:${{github.ref}}
     - name: Push the Docker image
-      run: docker push gcr.io/${{ secrets.PROJECT_ID}}/app:$(date +%s)
+      run: docker push gcr.io/${{ secrets.PROJECT_ID}}/app:${{github.ref}}
