@@ -15,11 +15,7 @@ jobs:
       version: $(date +%s)
     steps:
     - uses: actions/checkout@v2
-    - name: test
-      run: echo $(date +%s)
     - name: Build the Docker image
-      run: docker build App --file App/Dockerfile --tag ${{ secrets.PROJECT_ID}}/app:$(date +%s)
-    - name: test
-      run: echo $(date +%s)
+      run: docker build App --file App/Dockerfile --tag gcr.io/${{ secrets.PROJECT_ID}}/app:$(date +%s)
     - name: Push the Docker image
       run: docker push gcr.io/${{ secrets.PROJECT_ID}}/app:$(date +%s)
