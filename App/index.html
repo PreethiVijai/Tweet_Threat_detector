@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <script language='Javascript' type='text/javascript'>
+      function formSubmit(form) {
+        $.get(
+          '/form-response?formtext=' + form.formtext.value,
+          null,
+          function(data) {
+            $('#app-response').text(data);
+          }
+        );
+        return false;
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Hello!</h1>
+    <form name='basic-form' action='javascript:;' onsubmit='formSubmit(this)'>
+      <input type='text' id='formtext' name='formtext'></input>
+      <input type='submit'></input>
+    </form>
+    <h3>App Response:</h3>
+    <p id='app-response'></p>
+  </body>
+</html>
