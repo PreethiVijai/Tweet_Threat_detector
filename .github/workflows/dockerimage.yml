@@ -15,5 +15,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker build App --file App/Dockerfile --tag gcr.io/${{ secrets.PROJECT_ID}}/app:$GITHUB_SHA
+    - name: Authenticate to GCP
+      run: gcloud auth activate-service-account ${{ secrets.GCP_SERVICE_ACCOUNT_NAME }} --key-file=${{secrets.GCP_SERVICE_ACCOUNT_KEY}}
     - name: Push the Docker image
       run: docker push gcr.io/${{ secrets.PROJECT_ID}}/app:$GITHUB_SHA
