@@ -13,11 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build App --file App/Dockerfile --tag gcr.io/${{ secrets.PROJECT_ID}}/app:$GITHUB_SHA
     - name: Decrypte key file
       run: ./.github/scripts/decrypt_key.sh
     - name: Authenticate to GCP
       run: gcloud auth activate-service-account ${{ secrets.GCP_SERVICE_ACCOUNT_NAME }} --key-file=$HOME/secrets/key.json
+    - name: Build the Docker image
+      run: docker build App --file App/Dockerfile --tag gcr.io/${{ secrets.PROJECT_ID}}/app:$GITHUB_SHA
     - name: Push the Docker image
       run: docker push gcr.io/${{ secrets.PROJECT_ID}}/app:$GITHUB_SHA
