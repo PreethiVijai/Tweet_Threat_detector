@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: test
+      run: gpg --version
     - name: Decrypte key file
       run: ./.github/scripts/decrypt_key.sh
     - name: Authenticate to GCP
