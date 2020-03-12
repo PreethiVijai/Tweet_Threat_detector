@@ -24,7 +24,7 @@ jobs:
     - name: Configure Docker
       run: gcloud auth configure-docker
     - name: Build the Docker image
-      run: docker build App --file application/App/Dockerfile --tag gcr.io/${{ secrets.PROJECT_ID}}/app:$GITHUB_SHA
+      run: docker build application/App --file application/App/Dockerfile --tag gcr.io/${{ secrets.PROJECT_ID}}/app:$GITHUB_SHA
     - name: Push the Docker image
       run: docker push gcr.io/${{ secrets.PROJECT_ID}}/app:$GITHUB_SHA
     - name: Set deployment on image
