@@ -25,6 +25,8 @@ jobs:
         PASSPHRASE: ${{ secrets.ENCRYPT_KEY }}
     - name: Authenticate to GCP
       run: gcloud auth activate-service-account --key-file=$HOME/secrets/key.json
+    - name: Set Porject
+      run: gcloud config set project ${{ secrets.PROJECT_ID}}
     - name: Configure Docker
       run: gcloud auth configure-docker
     - name: Build the Docker image
