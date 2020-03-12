@@ -19,10 +19,10 @@ jobs:
       run: ./.github/scripts/decrypt_key.sh
       env: 
         PASSPHRASE: ${{ secrets.ENCRYPT_KEY }}
-    - name: Authenticate to GCP
-      run: gcloud auth activate-service-account ${{ secrets.GCP_SERVICE_ACCOUNT_NAME }} --key-file=$HOME/secrets/key.json
-    - name: Configure Docker
-      run: gcloud auth configure-docker
+    #- name: Authenticate to GCP
+    #  run: gcloud auth activate-service-account ${{ secrets.GCP_SERVICE_ACCOUNT_NAME }} --key-file=$HOME/secrets/key.json
+    #- name: Configure Docker
+    #  run: gcloud auth configure-docker
     - name: Build the Docker image
       run: docker build application/App --file application/App/Dockerfile --tag gcr.io/${{ secrets.PROJECT_ID}}/app:$GITHUB_SHA
     - name: Push the Docker image
