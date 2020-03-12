@@ -17,6 +17,8 @@ jobs:
       run: gpg --version
     - name: Decrypte key file
       run: ./.github/scripts/decrypt_key.sh
+      env: 
+        PASSPHRASE: ${{ secrets.ENCRYPT_KEY }}
     - name: Authenticate to GCP
       run: gcloud auth activate-service-account ${{ secrets.GCP_SERVICE_ACCOUNT_NAME }} --key-file=$HOME/secrets/key.json
     - name: Configure Docker
