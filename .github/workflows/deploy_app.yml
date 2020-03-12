@@ -24,7 +24,7 @@ jobs:
       env: 
         PASSPHRASE: ${{ secrets.ENCRYPT_KEY }}
     - name: Authenticate to GCP
-      run: gcloud auth activate-service-account ${{ secrets.GCP_SERVICE_ACCOUNT_NAME }} --key-file=$HOME/secrets/key.json
+      run: gcloud auth activate-service-account --key-file=$HOME/secrets/key.json
     - name: Configure Docker
       run: gcloud auth configure-docker
     - name: Build the Docker image
