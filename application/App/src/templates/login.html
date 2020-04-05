@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <div class="ThreadDetector-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+  <h1></h1>
+  <h3>Please sign in!</h3>
+  <form method="get" action='/login'>
+    <label>Username:<input type="text" name="user" value="" placeholder="Username(Required)"></label><br>
+    <label>Password:<input type="password" name="password" value="" placeholder="Email(Required)"></label><br>
+    <input type="submit" value="Sign In">
+    </form>
+{% endblock %}

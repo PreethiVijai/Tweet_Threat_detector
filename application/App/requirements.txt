@@ -1,2 +1,7 @@
 flask
 waitress
+mysql-server
+libmysqlclient-dev
+flask-mysqldb
+Flask-WTF
+passlib
