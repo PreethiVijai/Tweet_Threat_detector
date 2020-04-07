@@ -9,6 +9,6 @@ To install the app dependencies, type `pip install -r requirements.txt`
 
 To run the Tweet Analyzer, run `python src/Analyzer.py`
 
-You can then send tweets to the analyzer by sending them via POST to
-`<server-url>:8079/tweet`
+You can then send tweets to the analyzer by sending them via RabbitMQ
+to the 'tweet' queue
 
