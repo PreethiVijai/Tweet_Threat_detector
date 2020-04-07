@@ -13,12 +13,14 @@ class API:
         self.filter_rules_url = 'https://api.twitter.com/labs/1/tweets/stream/filter/rules'
         self.filter_stream_url = 'https://api.twitter.com/labs/1/tweets/stream/filter'
         self.oauth2_url = 'https://api.twitter.com/oauth2/token'
+        # TODO: This should go in a RabbitSender (or similarly named) class
         # RabbitMQ connection setup
         connection = pika.BlockingConnection(pika.ConnectionParameters('rabbitmq'))
         self.tweet_channel = connection.channel()
         self.tweet_channel.queue_declare(queue='tweet', durable=True)
 
     def __del__(self):
+        # TODO: This should go in a RabbitSender (or similarly named) class
         # Close RabbitMQ connection
         self.tweet_channel.close()
 
@@ -95,6 +97,7 @@ class API:
 
     def send_tweet_to_worker(self, tweet):
         """Send tweet to worker"""
+        # TODO: This should go in a RabbitSender (or similarly named) class
         # Send to worker via RabbitMQ
         self.tweet_channel.basic_publish(exchange='', routing_key='tweet', body=tweet,
                                          properties=pika.BasicProperties(delivery_mode=2))
@@ -109,5 +112,6 @@ class API:
         # Send tweets to worker as JSON objects as they come in
         for tweet in response.iter_lines():
             if tweet:
+                # TODO: This should call a RabbitSender (or similar class) member variable
                 worker_response = self.send_tweet_to_worker(tweet)
 
