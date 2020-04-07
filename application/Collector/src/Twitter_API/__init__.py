@@ -1,3 +1,3 @@
-from .API import API, WorkerConnectionException
+from .API import API
 
-__all__ = ['API', 'WorkerConnectionException']
+__all__ = ['API']

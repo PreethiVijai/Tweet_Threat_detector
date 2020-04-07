@@ -1,20 +1,26 @@
 import json
+import pika
 import requests
 
-
-class WorkerConnectionException(Exception):
-    pass
 
 class API:
     """Interacts with the Twitter API"""
 
-    def __init__(self, appkey, appsecret, workerurl):
+    def __init__(self, appkey, appsecret):
+        # Twitter info
         self.appkey = appkey
         self.appsecret = appsecret
-        self.worker_url = workerurl
         self.filter_rules_url = 'https://api.twitter.com/labs/1/tweets/stream/filter/rules'
         self.filter_stream_url = 'https://api.twitter.com/labs/1/tweets/stream/filter'
         self.oauth2_url = 'https://api.twitter.com/oauth2/token'
+        # RabbitMQ connection setup
+        connection = pika.BlockingConnection(pika.ConnectionParameters('rabbitmq'))
+        self.tweet_channel = connection.channel()
+        self.tweet_channel.queue_declare(queue='tweet', durable=True)
+
+    def __del__(self):
+        # Close RabbitMQ connection
+        self.tweet_channel.close()
 
     def get_oauth2_bearer_token(self):
         """Get an OAuth2 bearer token"""
@@ -87,25 +93,14 @@ class API:
                                  json=payload)
         return response.json()
 
-    def worker_status_check(self):
-        """Check status of the worker"""
-        response = requests.get(self.worker_url+'/status')
-        return response
-
     def send_tweet_to_worker(self, tweet):
         """Send tweet to worker"""
-        # Send to worker via REST call
-        try:
-            response = requests.post(self.worker_url+'/tweet',
-                                     json=tweet)
-        except requests.exceptions.ConnectionError:
-            print('Connection to worker failed')
-            return None
-        return response
+        # Send to worker via RabbitMQ
+        self.tweet_channel.basic_publish(exchange='', routing_key='tweet', body=tweet,
+                                         properties=pika.BasicProperties(delivery_mode=2))
 
     def start_filtered_tweet_stream(self):
         """Connect to Twitter API, pull filtered tweets through it, and send tweets to worker"""
-        # Wait until worker is ready
         # Open connection
         headers = {'Authorization': 'Bearer '+self.oauth2_bearer_token}
         response = requests.get(self.filter_stream_url,
@@ -114,7 +109,5 @@ class API:
         # Send tweets to worker as JSON objects as they come in
         for tweet in response.iter_lines():
             if tweet:
-                worker_response = self.send_tweet_to_worker(json.loads(tweet))
-                if worker_response is None:
-                    raise WorkerConnectionException
+                worker_response = self.send_tweet_to_worker(tweet)
 
