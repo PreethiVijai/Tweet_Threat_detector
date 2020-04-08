@@ -1,19 +1,19 @@
 from flask import Flask, request, send_from_directory, render_template, flash, redirect, url_for, session, logging
 app = Flask(__name__, static_url_path='')
 
-from flask_mysqldb import MySQL
+# from flask_mysqldb import MySQL
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from passlib.hash import sha256_crypt
 
-# Config MySQL
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = '123456'
-app.config['MYSQL_DB'] = 'ThreatDetectorDB'
-app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
+# # Config MySQL
+# app.config['MYSQL_HOST'] = 'localhost'
+# app.config['MYSQL_USER'] = 'root'
+# app.config['MYSQL_PASSWORD'] = '123456'
+# app.config['MYSQL_DB'] = 'ThreatDetectorDB'
+# app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
-# init MySQL
-mysql = MySQL(app)
+# # init MySQL
+# mysql = MySQL(app)
 
 
 
@@ -47,52 +47,49 @@ class RegisterForm(Form):
         ])
     confirmedPassword = PasswordField(u'Confirm Password')
 
-# go to register page
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    form = RegisterForm(request.form)
-    # if the form sunmitted
-    if request.method == 'POST' and form.validate():
+# # go to register page
+# @app.route('/register', methods=['GET', 'POST'])
+# def register():
+#     form = RegisterForm(request.form)
+#     # if the form sunmitted
+#     if request.method == 'POST' and form.validate():
 
-        # create cursor
-        cur = mysql.connection.cursor()
+#         # create cursor
+#         cur = mysql.connection.cursor()
 
-        username = form.username.data
-        cur.execute("select username from tdusers where username =(%s)",(username,))
-        username_result = cur.fetchall()
-        # if username already existed
-        if username_result:
-            flash(u"Username already exist. Please choose another one!","danger")
-        else:
-            email = form.email.data
-            cur.execute("select email from tdusers where email =(%s)",(email,))
-            email_result = cur.fetchall()
-            # if email already existed
-            if email_result:
-                flash(u"Email already exist. Please log in!",'danger')
-            else:
-                password = sha256_crypt.hash(str(form.password.data))
-                confirmedPassword = form.confirmedPassword.data
+#         username = form.username.data
+#         cur.execute("select username from tdusers where username =(%s)",(username,))
+#         username_result = cur.fetchall()
+#         # if username already existed
+#         if username_result:
+#             flash(u"Username already exist. Please choose another one!","danger")
+#         else:
+#             email = form.email.data
+#             cur.execute("select email from tdusers where email =(%s)",(email,))
+#             email_result = cur.fetchall()
+#             # if email already existed
+#             if email_result:
+#                 flash(u"Email already exist. Please log in!",'danger')
+#             else:
+#                 password = sha256_crypt.hash(str(form.password.data))
+#                 confirmedPassword = form.confirmedPassword.data
 
         
-                # execute query 
-                cur.execute("insert into tdusers(username, email, password, confirmedPassword) values(%s, %s, %s, %s)", (username, email, password, confirmedPassword))
+#                 # execute query 
+#                 cur.execute("insert into tdusers(username, email, password, confirmedPassword) values(%s, %s, %s, %s)", (username, email, password, confirmedPassword))
 
-                #commit to DB
-                mysql.connection.commit()
+#                 #commit to DB
+#                 mysql.connection.commit()
 
-                flash('You are now registered and can log in','success')
+#                 flash('You are now registered and can log in','success')
 
-                #close connection
-                cur.close()
-
-
-                return redirect(url_for('login'))
-
-    return render_template('register.html', form=form)
+#                 #close connection
+#                 cur.close()
 
 
+#                 return redirect(url_for('login'))
 
+#     return render_template('register.html', form=form)
 
 
 if __name__ == '__main__':
