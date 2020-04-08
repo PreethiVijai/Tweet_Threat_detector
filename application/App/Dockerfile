@@ -1,7 +1,7 @@
 FROM debian:bullseye
 RUN apt-get update
 RUN apt-get install -y python3 python3-pip
-RUN apt-get install mysql-server libmysqlclient-dev
+RUN sudo apt-get install mysql-server libmysqlclient-dev
 WORKDIR /App
 # Install python libraries
 ADD requirements.txt /App/requirements.txt
