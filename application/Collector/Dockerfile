@@ -1,8 +1,11 @@
 FROM debian:bullseye
 RUN apt-get update
 RUN apt-get install -y python3 python3-pip
-RUN python3 -m pip install -U pika
 WORKDIR /Collector
+# Install python libraries
+ADD requirements.txt /Collector/requirements.txt
+RUN python3 -m pip install -r requirements.txt
+# Upload code
 ADD src/* /Collector/
 # Expose port to run on
 EXPOSE 8080
