@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import Header from './components/layout/Header';
+
 
 import './App.css';
 
 class App extends Component{
+  state={
+    twitter_feed: [
+
+    ]
+  }
 
 render(){
   return(
-    <div>
-      <h3>Threat detection</h3>
+    <div className="App">
+      <div className="container">
+        <Header/>
+      </div>
     </div>
   );
 }
