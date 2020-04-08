@@ -9,11 +9,13 @@ def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('apikey', help='API key for the app communicating with Twitter')
     parser.add_argument('apisecret', help='API secret for the app communicating with Twitter')
+    parser.add_argument('rabbit_host', help='Hostname of RabbitMQ instance to connect to')
     return parser.parse_args()
 
 
-def main(apikey, apisecret):
-    api = API(apikey, apisecret)
+def main(apikey, apisecret, rabbit_host):
+    # Prepare Twitter and RabbitMQ connections
+    api = API(apikey, apisecret, rabbit_host)
     api.get_oauth2_bearer_token()
 
     # Example of adding a rule:
@@ -39,5 +41,5 @@ def main(apikey, apisecret):
 
 if __name__ == '__main__':
     args = parse_args()
-    main(args.apikey, args.apisecret)
+    main(args.apikey, args.apisecret, args.rabbit_host)
 

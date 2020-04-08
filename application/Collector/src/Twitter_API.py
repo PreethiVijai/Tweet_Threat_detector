@@ -1,28 +1,27 @@
 import json
-import pika
 import requests
+
+from RabbitSender import RabbitSender
 
 
 class API:
     """Interacts with the Twitter API"""
 
-    def __init__(self, appkey, appsecret):
+    def __init__(self, appkey, appsecret, rabbit_host):
+        """
+        appkey: str - application key for Twitter API
+        appsecret: str - application secret for Twitter API
+        rabbit_host: str - hostname of RabbitMQ instance to connect to
+        """
         # Twitter info
         self.appkey = appkey
         self.appsecret = appsecret
         self.filter_rules_url = 'https://api.twitter.com/labs/1/tweets/stream/filter/rules'
         self.filter_stream_url = 'https://api.twitter.com/labs/1/tweets/stream/filter'
         self.oauth2_url = 'https://api.twitter.com/oauth2/token'
-        # TODO: This should go in a RabbitSender (or similarly named) class
-        # RabbitMQ connection setup
-        connection = pika.BlockingConnection(pika.ConnectionParameters('rabbitmq'))
-        self.tweet_channel = connection.channel()
-        self.tweet_channel.queue_declare(queue='tweet', durable=True)
-
-    def __del__(self):
-        # TODO: This should go in a RabbitSender (or similarly named) class
-        # Close RabbitMQ connection
-        self.tweet_channel.close()
+        # RabbitMQ setup
+        self.rabbit_sender = RabbitSender('tweet')
+        self.rabbit_sender.prepare_connection(rabbit_host)
 
     def get_oauth2_bearer_token(self):
         """Get an OAuth2 bearer token"""
@@ -95,13 +94,6 @@ class API:
                                  json=payload)
         return response.json()
 
-    def send_tweet_to_worker(self, tweet):
-        """Send tweet to worker"""
-        # TODO: This should go in a RabbitSender (or similarly named) class
-        # Send to worker via RabbitMQ
-        self.tweet_channel.basic_publish(exchange='', routing_key='tweet', body=tweet,
-                                         properties=pika.BasicProperties(delivery_mode=2))
-
     def start_filtered_tweet_stream(self):
         """Connect to Twitter API, pull filtered tweets through it, and send tweets to worker"""
         # Open connection
@@ -109,9 +101,8 @@ class API:
         response = requests.get(self.filter_stream_url,
                                 headers=headers,
                                 stream=True)
-        # Send tweets to worker as JSON objects as they come in
+        # Send tweets to worker as they come in
         for tweet in response.iter_lines():
             if tweet:
-                # TODO: This should call a RabbitSender (or similar class) member variable
-                worker_response = self.send_tweet_to_worker(tweet)
+                self.rabbit_sender.send_message(tweet)
 
