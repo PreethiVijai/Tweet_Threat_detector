@@ -1,4 +1,13 @@
+import argparse
+
 import RabbitReceiver
+
+
+def parse_args():
+    """Parse command-line arguments"""
+    parser = argparse.ArgumentParser()
+    parser.add_argument('rabbit_host', help='Hostname of RabbitMQ instance to connect to')
+    return parser.parse_args()
 
 
 def write_to_db(tweet: str) -> None:
@@ -7,12 +16,14 @@ def write_to_db(tweet: str) -> None:
     print(tweet)
 
 
-def main():
+def main(rabbit_host):
     queue_name = 'tweet'
-    receiver = RabbitReceiver(queue_name, write_to_db)
+    receiver = RabbitReceiver.RabbitReceiver(queue_name, write_to_db)
+    receiver.prepare_connection(rabbit_host)
     receiver.start_receiving()
 
 
 if __name__ == '__main__':
-    main()
+    args = parse_args()
+    main(args.rabbit_host)
 

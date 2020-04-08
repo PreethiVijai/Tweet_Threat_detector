@@ -13,11 +13,18 @@ class RabbitReceiver:
         queue_name: str - Name of queue to receive from
         receiver_callback: Callable - Function to process received messages
         """
-        self.connection = pika.BlockingConnection(pika.ConnectionParameters("rabbitmq"))
-        self.channel = self.connection.channel()
-        self.channel.queue_declare(queue=queue_name, durable=True)
         self.queue_name = queue_name
         self.receiver_callback = receiver_callback
+
+    def prepare_connection(self, rabbit_host: str):
+        """
+        Prepare RabbitMQ connection
+
+        rabbit_host: str - Hostname of RabbitMQ to connect to
+        """
+        self.connection = pika.BlockingConnection(pika.ConnectionParameters(rabbit_host))
+        self.channel = self.connection.channel()
+        self.channel.queue_declare(queue=self.queue_name, durable=True)
 
     def callback(self, ch, method, properties, body) -> None:
         self.receiver_callback(body)
