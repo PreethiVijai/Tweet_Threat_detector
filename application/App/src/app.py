@@ -21,7 +21,7 @@ mysql = MySQL(app)
 @app.route('/form-response')
 def form_response():
     formtext = request.args.get('formtext')
-    if formtext is not None:
+    if formtext is not None and formtext.strip() != '':
         return 'You typed \'' + formtext + '\', which was sent to the app, which sent it back, along with this message!'
     else:
         return 'You didn\'t type anything! The app sent this message back to let you know that.'
