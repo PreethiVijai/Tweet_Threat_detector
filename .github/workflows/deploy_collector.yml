@@ -33,6 +33,9 @@ jobs:
       run: gcloud auth configure-docker
     - name: Build the Docker image
       run: docker build application/App --file application/Collector/Dockerfile --tag gcr.io/${{ secrets.PROJECT_ID}}/collector:$GITHUB_SHA
+      env: 
+        APIKEY: ${{ secrets.API_KEY }}
+        APISECRET: ${{ secrets.API_SECRET_KEY }}
     - name: Push the Docker image
       run: docker push gcr.io/${{ secrets.PROJECT_ID}}/collector:$GITHUB_SHA
     - name: Configure kubernetes
