@@ -12,4 +12,4 @@ EXPOSE 8080
 # TODO: Figure out how to give the Collector access to our Twitter API key and secret, currently
 # the Collector expects that key and secret to be passed as command-line arguments. The
 # Collector will not run until these arguments are being passed in.
-CMD python3 Collector.py apikey apisecret rabbitmq
+CMD python3 Collector.py $APIKEY $APISECRET rabbitmq
