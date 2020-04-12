@@ -1,21 +1,19 @@
 from flask import Flask, request, send_from_directory, render_template, flash, redirect, url_for, session, logging
 app = Flask(__name__, static_url_path='')
 
-# from flask_mysqldb import MySQL
+from flask_mysqldb import MySQL
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from passlib.hash import sha256_crypt
 
-# # Config MySQL
-# app.config['MYSQL_HOST'] = 'localhost'
-# app.config['MYSQL_USER'] = 'root'
-# app.config['MYSQL_PASSWORD'] = '123456'
-# app.config['MYSQL_DB'] = 'ThreatDetectorDB'
-# app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
+# Config MySQL
+app.config['MYSQL_HOST'] = 'sql3.freemysqlhosting.net'
+app.config['MYSQL_USER'] = 'sql3333055'
+app.config['MYSQL_PASSWORD'] = 'kY3GvABHXI'
+app.config['MYSQL_DB'] = 'sql3333055'
+app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
-# # init MySQL
-# mysql = MySQL(app)
-
-
+# init MySQL
+mysql = MySQL(app)
 
 # Respond when the form asks for a response
 @app.route('/form-response')
@@ -47,49 +45,53 @@ class RegisterForm(Form):
         ])
     confirmedPassword = PasswordField(u'Confirm Password')
 
-# # go to register page
-# @app.route('/register', methods=['GET', 'POST'])
-# def register():
-#     form = RegisterForm(request.form)
-#     # if the form sunmitted
-#     if request.method == 'POST' and form.validate():
+# go to register page
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegisterForm(request.form)
+    # if the form sunmitted
+    if request.method == 'POST' and form.validate():
 
-#         # create cursor
-#         cur = mysql.connection.cursor()
-
-#         username = form.username.data
-#         cur.execute("select username from tdusers where username =(%s)",(username,))
-#         username_result = cur.fetchall()
-#         # if username already existed
-#         if username_result:
-#             flash(u"Username already exist. Please choose another one!","danger")
-#         else:
-#             email = form.email.data
-#             cur.execute("select email from tdusers where email =(%s)",(email,))
-#             email_result = cur.fetchall()
-#             # if email already existed
-#             if email_result:
-#                 flash(u"Email already exist. Please log in!",'danger')
-#             else:
-#                 password = sha256_crypt.hash(str(form.password.data))
-#                 confirmedPassword = form.confirmedPassword.data
-
+        # create cursor
+        cur = mysql.connection.cursor()
         
-#                 # execute query 
-#                 cur.execute("insert into tdusers(username, email, password, confirmedPassword) values(%s, %s, %s, %s)", (username, email, password, confirmedPassword))
+        create database if not exists `dbname`;
+        if cur.execute("select * from INFORMATION_SCHEMA.TABLES where 'TABLE_SCHEMA'='sql3333055' and 'TABLE_NAME'='tdusers'") is False:
 
-#                 #commit to DB
-#                 mysql.connection.commit()
+            cur.execute("CREATE TABLE tdusers (id INT(11) AUTO_INCREMENT PRIMARY KEY, username VARCHAR(30), email VARCHAR(100), password VARCHAR(100), confirmedPassword VARCHAR(100))")
+        
+        username = form.username.data
+        cur.execute("select username from tdusers where username =(%s)",(username,))
+        username_result = cur.fetchall()
+        # if username already existed
+        if username_result:
+            flash(u"Username already exist. Please choose another one!","danger")
+        else:
+            email = form.email.data
+            cur.execute("select email from tdusers where email =(%s)",(email,))
+            email_result = cur.fetchall()
+            # if email already existed
+            if email_result:
+                flash(u"Email already exist. Please log in!",'danger')
+            else:
+                password = sha256_crypt.hash(str(form.password.data))
+                confirmedPassword = form.confirmedPassword.data
+        
+                # execute query 
+                cur.execute("insert into tdusers(username, email, password, confirmedPassword) values(%s, %s, %s, %s)", (username, email, password, confirmedPassword))
 
-#                 flash('You are now registered and can log in','success')
+                #commit to DB
+                mysql.connection.commit()
 
-#                 #close connection
-#                 cur.close()
+                flash('You are now registered and can log in','success')
+
+                #close connection
+                cur.close()
 
 
-#                 return redirect(url_for('login'))
+                return redirect(url_for('login'))
 
-#     return render_template('register.html', form=form)
+    return render_template('register.html', form=form)
 
 
 if __name__ == '__main__':
