@@ -1,5 +1,6 @@
 flask
 waitress
+mysql-client
 flask-mysqldb
 Flask-WTF
 passlib
