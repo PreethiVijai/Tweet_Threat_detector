@@ -1,6 +1,8 @@
 import argparse
 
 import RabbitReceiver
+import TweetProcessor
+import DatabaseAccesser
 
 
 def parse_args():
@@ -16,20 +18,24 @@ def main(args):
 
 
 class Analyzer:
-    def __init__():
+    def __init__(self, database_name):
         queue_name = 'tweet'
+        self.processor = TweetProcessor.TweetProcessor()
+        self.db_acceser = DatabaseAccesser.DatabaseAccesser(database_name)
         self.receiver = RabbitReceiver.RabbitReceiver(queue_name, self.process_tweet)
         self.receiver.prepare_connection(rabbit_host)
 
-    def process_tweet(tweet):
-        pass
+    def process_tweet(self, tweet):
+        result = TweetProcessor.process_tweet(tweet)
+        if result is not None:
+            self.db_acceser.add_threat(result)
 
-    def write_to_db(tweet: str) -> None:
+    def write_to_db(self, tweet: str) -> None:
         """Write tweet to database"""
         # TODO: Write tweet to DB instead of printing it
-        print(tweet)ls
+        print(tweet)
 
-    def start(rabbit_host):
+    def start(self, rabbit_host):
         receiver.start_receiving()
 
 

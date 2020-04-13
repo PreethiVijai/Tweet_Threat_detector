@@ -1,7 +1,6 @@
 
 
-
-class DatabaseAccess:
+class DatabaseAccesser:
     def __init__(self, address):
         pass
 
