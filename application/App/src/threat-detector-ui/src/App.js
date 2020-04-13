@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Header from './components/layout/Header';
+import RegistrationComponents from './components/pages/RegistrationComponents'
 
 
 import './App.css';
@@ -16,10 +17,12 @@ render(){
     <div className="App">
       <div className="container">
         <Header/>
+        <RegistrationComponents rf ={this.RegistrationComponents}/>
       </div>
     </div>
   );
 }
 }
+
 
 export default App;
