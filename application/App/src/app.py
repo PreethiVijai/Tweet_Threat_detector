@@ -6,10 +6,10 @@ from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from passlib.hash import sha256_crypt
 
 # Config MySQL
-app.config['MYSQL_HOST'] = 'sql3.freemysqlhosting.net'
-app.config['MYSQL_USER'] = 'sql3333055'
-app.config['MYSQL_PASSWORD'] = 'kY3GvABHXI'
-app.config['MYSQL_DB'] = 'sql3333055'
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = '123456'
+app.config['MYSQL_DB'] = 'ThreatDetectorDB'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 # init MySQL
@@ -54,14 +54,12 @@ def register():
 
         # create cursor
         cur = mysql.connection.cursor()
-        
-        create database if not exists `dbname`;
-        if cur.execute("select * from INFORMATION_SCHEMA.TABLES where 'TABLE_SCHEMA'='sql3333055' and 'TABLE_NAME'='tdusers'") is False:
-
-            cur.execute("CREATE TABLE tdusers (id INT(11) AUTO_INCREMENT PRIMARY KEY, username VARCHAR(30), email VARCHAR(100), password VARCHAR(100), confirmedPassword VARCHAR(100))")
+        # create table if not exists
+        cur.execute("CREATE TABLE if not exists tdusers (id INT(11) AUTO_INCREMENT PRIMARY KEY, username VARCHAR(30), email VARCHAR(100), password VARCHAR(100), confirmedPassword VARCHAR(100))")
         
         username = form.username.data
         cur.execute("select username from tdusers where username =(%s)",(username,))
+        
         username_result = cur.fetchall()
         # if username already existed
         if username_result:
