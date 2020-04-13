@@ -10,20 +10,29 @@ def parse_args():
     return parser.parse_args()
 
 
-def write_to_db(tweet: str) -> None:
-    """Write tweet to database"""
-    # TODO: Write tweet to DB instead of printing it
-    print(tweet)
+def main(args):
+    analyzer = Analyzer(args.rabbit_host)
+    analyzer.start()
 
 
-def main(rabbit_host):
-    queue_name = 'tweet'
-    receiver = RabbitReceiver.RabbitReceiver(queue_name, write_to_db)
-    receiver.prepare_connection(rabbit_host)
-    receiver.start_receiving()
+class Analyzer:
+    def __init__():
+        queue_name = 'tweet'
+        self.receiver = RabbitReceiver.RabbitReceiver(queue_name, self.process_tweet)
+        self.receiver.prepare_connection(rabbit_host)
+
+    def process_tweet(tweet):
+        pass
+
+    def write_to_db(tweet: str) -> None:
+        """Write tweet to database"""
+        # TODO: Write tweet to DB instead of printing it
+        print(tweet)ls
+
+    def start(rabbit_host):
+        receiver.start_receiving()
 
 
 if __name__ == '__main__':
     args = parse_args()
-    main(args.rabbit_host)
-
+    main(args)
