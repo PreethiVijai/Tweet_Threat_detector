@@ -3,6 +3,7 @@ RUN apt-get update
 RUN apt-get install -y python3 python3-pip
 WORKDIR /App
 # Install python libraries
+RUN apt-get install mysql-client 
 ADD requirements.txt /App/requirements.txt
 RUN python3 -m pip install -r requirements.txt
 # Upload code
