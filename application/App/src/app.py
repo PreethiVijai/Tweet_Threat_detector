@@ -54,6 +54,9 @@ def register():
 
         # create cursor
         cur = mysql.connection.cursor()
+        if cur.execute("select * from INFORMATION_SCHEMA.TABLES where 'TABLE_SCHEMA'='ThreatDetectorDB' and 'TABLE_NAME'='tdusers'") is False:
+            cur.execute("CREATE TABLE tdusers (id INT(11) AUTO_INCREMENT PRIMARY KEY, username VARCHAR(30), email VARCHAR(100), password VARCHAR(100), confirmedPassword VARCHAR(100))")
+
         # create table if not exists
         cur.execute("CREATE TABLE if not exists tdusers (id INT(11) AUTO_INCREMENT PRIMARY KEY, username VARCHAR(30), email VARCHAR(100), password VARCHAR(100), confirmedPassword VARCHAR(100))")
         
