@@ -11,7 +11,7 @@ To install the app dependencies, type `pip install -r requirements.txt`.
 
 ### Running
 
-To run the Tweet Analyzer, run `python src/Analyzer.py rabbitmq`.
+To run the Tweet Analyzer, run `python Analyzer.py rabbitmq <database-name>` from inside the src directory.
 
 You can then send tweets to the analyzer by sending them via RabbitMQ
 to the 'tweet' queue.
