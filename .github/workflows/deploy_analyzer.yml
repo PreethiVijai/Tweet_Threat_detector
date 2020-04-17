@@ -13,13 +13,6 @@ on:
       - 'application/Analyzer/Dockerfile'
 
 jobs:
-
-  test:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@master
-    - name: Test
-      run: bash application/Analyzer/runTests.sh
       
   build:
 
