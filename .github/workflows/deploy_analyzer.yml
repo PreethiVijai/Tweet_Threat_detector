@@ -19,7 +19,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Test
-      run: bash application/Analyzer/runtests.sh
+      run: bash application/Analyzer/runTests.sh
       
   build:
 
