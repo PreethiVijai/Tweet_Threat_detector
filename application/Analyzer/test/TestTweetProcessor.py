@@ -2,10 +2,7 @@ import unittest
 
 from TweetProcessor import TweetProcessor
 from Threat import Threat
-
-
-test_body_text = 'test_body'
-test_queue_name = 'test_queue'
+import json
 
 
 class TestTweetProcessor(unittest.TestCase):
@@ -14,19 +11,29 @@ class TestTweetProcessor(unittest.TestCase):
     def setUp(self):
         self.processor = TweetProcessor()
 
-    def test_none_result(self):
-        tweet = "a short tweet"
-        result = self.processor.proccess_tweet(tweet)
+    def test_no_location(self):
+        tweet = {}
+        tweet['data'] = {}
+        tweet['data']['text'] = 'no keywords here'
+        tweet = json.dumps(tweet)
+        result = self.processor.process_tweet(tweet)
         self.assertIsNone(result)
 
-    def test_threat_result(self):
-        tweet = "a long tweet"*10
-        result = self.processor.proccess_tweet(tweet)
+    def test_fire_tweet(self):
+        tweet = {}
+        tweet['data'] = {}
+        tweet['data']['entities'] = {}
+        tweet['data']['entities']['annotations'] = [{}]
+        tweet['data']['entities']['annotations'][0]['type'] = 'Place'
+        tweet['data']['entities']['annotations'][0]['normalized_text'] = 'Somewhere'
+        tweet['data']['text'] = 'fire fire fire'
+        tweet_json = json.dumps(tweet)
+        result = self.processor.process_tweet(tweet_json)
         self.assertIsInstance(result, Threat)
         self.assertIsInstance(result.ID, int)
-        self.assertEqual(result.type, "Crime")
-        self.assertEqual(result.location, "Unkown")
-        self.assertEqual(result.confidence, .0)
+        self.assertEqual(result.type, "fire")
+        self.assertEqual(result.location, "Somewhere")
+        self.assertEqual(result.confidence, .1)
         self.assertIsInstance(result.tweets, list)
         self.assertListEqual(result.tweets, [tweet])
 
