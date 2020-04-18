@@ -1,24 +1,34 @@
 name: Docker Image CI
 
 on:
-  push:
-    branches: [ master ]
-    paths:
-      - 'application/Analyzer/src/**'
-      - 'application/Analyzer/Dockerfile'
   pull_request:
-    branches: [ master ]
+    branches:
+      - master
+      - development
     paths:
       - 'application/Analyzer/src/**'
       - 'application/Analyzer/Dockerfile'
 
 jobs:
-      
-  build:
-
+  test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Test
+      run: bash application/Analyzer/runTests.sh || exit 1
+
+  build:
+    if: success()
+    
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Check if master Branch
+      if: github.ref == 'refs/heads/master'
+      run: CLUSTER='cluster-1'
+    - name: Check if development Branch
+      if: github.ref == 'refs/heads/development'
+      run: CLUSTER='cluster-2'
     - name: test
       run: gpg --version
     - name: Decrypte key file
@@ -36,6 +46,6 @@ jobs:
     - name: Push the Docker image
       run: docker push gcr.io/${{ secrets.PROJECT_ID}}/analyzer:$GITHUB_SHA
     - name: Configure kubernetes
-      run: gcloud container clusters get-credentials --zone us-central1-c cluster-1
+      run: gcloud container clusters get-credentials --zone us-central1-c $CLUSTER
     - name: Set deployment on image
       run: kubectl set image deployment/analyzer analyzer=gcr.io/${{ secrets.PROJECT_ID}}/analyzer:$GITHUB_SHA
