@@ -1,3 +1,4 @@
 flask
 waitress
 pika
+mysql-connector-python-rf
