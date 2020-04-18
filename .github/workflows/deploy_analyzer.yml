@@ -13,6 +13,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
     - name: Test
       run: bash application/Analyzer/runTests.sh || exit 1
 
@@ -21,6 +22,7 @@ jobs:
     
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
     - name: Check if master Branch
       if: github.ref == 'refs/heads/master'
       run: CLUSTER='cluster-1'
