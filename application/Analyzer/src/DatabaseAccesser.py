@@ -16,7 +16,7 @@ class DatabaseAccesser:
         self.time_func = date.today
 
     def prepare_connection(self):
-        self.connection = mysql.connector.connect(user="", password="", host=self.address, database=self.database)
+        self.connection = mysql.connector.connect(user="root", password="", host=self.address, database=self.database)
 
     def add_threat(self, threat):
         cursor = self.connection.cursor()
