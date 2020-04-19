@@ -44,6 +44,6 @@ jobs:
     - name: Push the Docker image
       run: docker push gcr.io/${{ secrets.PROJECT_ID}}/analyzer:$GITHUB_SHA
     - name: Configure kubernetes
-      run: gcloud container clusters get-credentials --zone us-central1-c $CLUSTER
+      run: gcloud container clusters get-credentials --zone us-central1-c cluster-1
     - name: Set deployment on image
       run: kubectl set image deployment/analyzer analyzer=gcr.io/${{ secrets.PROJECT_ID}}/analyzer:$GITHUB_SHA
