@@ -23,12 +23,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Check if master Branch
-      if: github.base_ref == 'master'
-      run: CLUSTER='cluster-1'
-    - name: Check if development Branch
-      if: github.base_ref == 'development'
-      run: CLUSTER='cluster-2'
     - name: Decrypte key file
       run: ./.github/scripts/decrypt_key.sh
       env: 
@@ -43,7 +37,11 @@ jobs:
       run: docker build application/App --file application/Collector/Dockerfile --tag gcr.io/${{ secrets.PROJECT_ID}}/collector:$GITHUB_SHA --build-arg APIKEY=${{ secrets.API_KEY }} --build-arg APISECRET=${{ secrets.API_SECRET_KEY }}
     - name: Push the Docker image
       run: docker push gcr.io/${{ secrets.PROJECT_ID}}/collector:$GITHUB_SHA
-    - name: Configure kubernetes
-      run: gcloud container clusters get-credentials --zone us-central1-c $CLUSTER
+    - name: Configure kubernetes for master
+      if: github.base_ref == 'master'
+      run: gcloud container clusters get-credentials --zone us-central1-c cluster-1
+    - name: Configure kubernetes for development
+      if: github.base_ref == 'development'
+      run: gcloud container clusters get-credentials --zone us-central1-c cluster-2
     - name: Set deployment on image
       run: kubectl set image deployment/collector collector=gcr.io/${{ secrets.PROJECT_ID}}/collector:$GITHUB_SHA
