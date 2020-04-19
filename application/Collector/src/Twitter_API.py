@@ -30,6 +30,8 @@ class API:
         response = requests.post(self.oauth2_url,
                                  auth=auth,
                                  params=params)
+        if 'access_token' not in response.json():
+            raise Exception("No access_token retrieved from Twitter, response is: " + response.text)
         self.oauth2_bearer_token = response.json()['access_token']
 
     def add_filter_rule(self, search_text, dry_run=False):

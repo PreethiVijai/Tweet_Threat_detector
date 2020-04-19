@@ -14,8 +14,8 @@ def parse_args():
 
 
 def get_file_conents(file):
-    with open(file) as f:
-        return f.read()
+    with open(file, 'r') as f:
+        return f.read().strip()
 
 
 def main(apikey, apisecret, rabbit_host):
