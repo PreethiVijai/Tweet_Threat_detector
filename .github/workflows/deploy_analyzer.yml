@@ -30,7 +30,7 @@ jobs:
       if: github.ref == 'refs/heads/development'
       run: CLUSTER='cluster-2'
     - name: test
-      run: gpg --version
+      run: echo ${{github.ref}}
     - name: Decrypte key file
       run: ./.github/scripts/decrypt_key.sh
       env: 
