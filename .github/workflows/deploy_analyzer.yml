@@ -24,10 +24,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Check if master Branch
-      if: github.rbase_ef == 'master'
+      if: github.base_ref == 'master'
       run: CLUSTER='cluster-1'
     - name: Check if development Branch
-      if: github.rbase_ef == 'master'
+      if: github.base_ref == 'master'
       run: CLUSTER='cluster-2'
     - name: Decrypte key file
       run: ./.github/scripts/decrypt_key.sh
