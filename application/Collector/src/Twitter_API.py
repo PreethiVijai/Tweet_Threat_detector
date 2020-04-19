@@ -31,7 +31,6 @@ class API:
                                  auth=auth,
                                  params=params)
         if 'access_token' not in response.json():
-            print(response.json())
             raise "No access_token retrieved from Twitter, response is: " + response.text
         self.oauth2_bearer_token = response.json()['access_token']
 
