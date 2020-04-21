@@ -46,7 +46,7 @@ class API:
         '''
         auth = (self.appkey, self.appsecret)
         params = {'grant_type': 'client_credentials'}
-        response = requests.post(self.oauth2_url, auth=auth_url, params=params)
+        response = requests.post(self.oauth2_url, auth=auth, params=params)
         if 'access_token' not in response.json():
             raise Exception("No access_token retrieved from Twitter, response is: " + response.text)
         self.oauth2_bearer_token = response.json()['access_token']
