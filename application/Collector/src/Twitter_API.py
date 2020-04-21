@@ -27,11 +27,13 @@ class API:
     def get_oauth2_bearer_token(self):
         """Get an OAuth2 bearer token"""
         # auth = (self.appkey, self.appsecret)
+        print(self.appkey)
+        print(self.appsecret)
         key_secret = '{}:{}'.format(self.appkey, self.appsecret).encode('ascii')
-        b64_encoded_key = base64.b64encode(key_secret)
-        b64_encoded_key = b64_encoded_key.decode('ascii')
+        #b64_encoded_key = base64.b64encode(key_secret)
+        #b64_encoded_key = b64_encoded_key.decode('ascii')
         auth_headers = {
-                'Authorization': 'Basic {}'.format(b64_encoded_key),
+                'Authorization': 'Basic {}'.format(key_secret),
                 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
             }
         auth_data = {
