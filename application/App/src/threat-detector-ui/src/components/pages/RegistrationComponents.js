@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-//import {BrowserRouter as Router, Route} from 'react-router-dom';
-
+import axios from "axios";
+import { debounce } from "throttle-debounce";
 import RegistrationForm from './RegistrationForm'
 //constructor
 class RegistrationComponents extends Component{
@@ -18,15 +18,47 @@ this.state =
     message: ''
 };
 }
+SUGGEST_URL = "http://34.82.245.28:8080/suggest";
+
+componentWillMount() {
+  this.onSuggestionsFetchRequested = debounce(
+    500,
+    this.onSuggestionsFetchRequested
+  );
+}
+componentDidMount() {
+    axios.get(this.SUGGEST_URL, {}).then((res) => {
+      this.setState({ cacheAPISugestions: res.data });
+    });
+  }
+
+
+renderSuggestion = (suggestion) => {
+    return <span>{suggestion.name}</span>;
+  };
+
 handleChange(event)
 {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
+    console.log(value)
 
     this.setState({ [name]: value });
 
     return true;
+}
+
+handleSubmit(event)
+{
+  /*code to persist data into database*/
+    event.preventDefault();
+    const { username, firstName, lastName, newPassword,success,message} = this.state;
+
+     axios.post('/', { username, firstName, lastName, newPassword,success,message}).then(res => {
+       console.log(res);
+       console.log(res.data);
+     })
 }
 
 render() {
@@ -34,24 +66,24 @@ render() {
 
       <div>
       <RegistrationForm/>
-      <form formStyle onSubmit={this.handleSubmit}>
+    <form formStyle onSubmit={() => this.handleSubmit}>
     <div formStyle className="form-group">
         <label>Username</label>
-        <input type="text" className="form-control" placeholder="Username" name="username" required onChange={this.handleChange} />
+        <input type="text" className="form-control" placeholder="Username" name="username" required onChange={() => this.handleChange} />
     </div>
     <div formStyle className="form-group">
         <label>Password</label>
-        <input type="password" className="form-control" placeholder="Password" name="newPassword" required onChange={this.handleChange} />
+        <input type="password" className="form-control" placeholder="Password" name="newPassword" required onChange={() => this.handleChange} />
     </div>
     <div formStyle className="form-group">
         <label>First Name</label>
-        <input type="text" className="form-control" placeholder="First Name" name="firstName" onChange={this.handleChange} />
+        <input type="text" className="form-control" placeholder="First Name" name="firstName" onChange={() => this.handleChange} />
     </div>
     <div formStyle className="form-group">
         <label>Last Name</label>
-        <input type="text" className="form-control" placeholder="Last Name" name="lastName" onChange={this.handleChange} />
+        <input type="text" className="form-control" placeholder="Last Name" name="lastName" onChange={() => this.handleChange} />
     </div>
-    <button type="submit" className="btn btn-primary">Submit</button>
+    <button type="submit" className="btn btn-primary" >Submit</button>
 </form>
       </div>
     );
