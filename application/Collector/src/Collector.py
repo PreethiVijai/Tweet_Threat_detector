@@ -21,8 +21,8 @@ def get_file_conents(file):
 
 
 def main(apikey, apisecret, rabbit_host):
-    apikey = get_file_conents(apikey)
-    apisecret = get_file_conents(apisecret)
+    #apikey = get_file_conents(apikey)
+    #apisecret = get_file_conents(apisecret)
 
     # Prepare Twitter and RabbitMQ connections
     print(apikey)
