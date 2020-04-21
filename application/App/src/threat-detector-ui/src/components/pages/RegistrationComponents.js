@@ -69,20 +69,28 @@ render() {
       <RegistrationForm/>
     <form  ref="simpleForm" onSubmit={() => this.handleSubmit}>
     <div  className="form-group">
+      <font color={'#A9A9A9'}>
         <label>Username</label>
         <input type="text" className="form-control" placeholder="Username" name="username" required onChange={() => this.handleChange} />
+      </font>
     </div>
     <div  className="form-group">
+      <font color={'#A9A9A9'}>
         <label>Password</label>
         <input type="password" className="form-control" placeholder="Password" name="newPassword" required onChange={() => this.handleChange} />
+      </font>
     </div>
     <div  className="form-group">
+      <font color={'#A9A9A9'}>
         <label>First Name</label>
         <input type="text" className="form-control" placeholder="First Name" name="firstName" onChange={() => this.handleChange} />
+      </font>
     </div>
     <div  className="form-group">
+      <font color={'#A9A9A9'}>
         <label>Last Name</label>
         <input type="text" className="form-control" placeholder="Last Name" name="lastName" onChange={() => this.handleChange} />
+      </font>
     </div>
     <button type="submit" className="btn btn-primary" >Submit</button>
 </form>
