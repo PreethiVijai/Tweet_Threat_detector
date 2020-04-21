@@ -17,6 +17,7 @@ render(){
     <div className="App">
       <div className="container">
         <Header/>
+        <body/>
         <RegistrationComponents rf ={this.RegistrationComponents}/>
       </div>
     </div>
