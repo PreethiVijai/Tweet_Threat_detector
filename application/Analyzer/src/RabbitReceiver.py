@@ -29,6 +29,8 @@ class RabbitReceiver:
     def callback(self, ch, method, properties, body) -> None:
         try:
             self.receiver_callback(body)
+        except:
+            pass
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
     def start_receiving(self) -> None:
