@@ -14,15 +14,19 @@ def parse_args():
 
 
 def get_file_conents(file):
-    with open(file) as f:
-        return f.read()
+    with open(file, 'r') as f:
+        res = f.read()
+        print(res)
+        return res.strip()
 
 
 def main(apikey, apisecret, rabbit_host):
-    apikey = get_file_conents(apikey)
-    apisecret = get_file_conents(apisecret)
+    #apikey = get_file_conents(apikey)
+    #apisecret = get_file_conents(apisecret)
 
     # Prepare Twitter and RabbitMQ connections
+    print(apikey)
+    print(apisecret)
     api = API(apikey, apisecret, rabbit_host)
     api.get_oauth2_bearer_token()
 
