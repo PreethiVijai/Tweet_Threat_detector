@@ -16,6 +16,7 @@ def parse_args():
 def get_file_conents(file):
     with open(file, 'r') as f:
         res = f.read()
+        print(res)
         return res.strip()
 
 
