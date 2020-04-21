@@ -23,9 +23,9 @@ class DatabaseAccesser:
         data_threat = {
             'id': threat.ID,
             'type': threat.type,
-            'location': bytes(threat.location, 'utf-8').encode('utf-8', 'ignore'),
+            'location': bytes(threat.location, 'utf-8').decode('utf-8', 'ignore'),
             'confidence': threat.confidence,
-            'tweets': bytes(json.dumps(threat.tweets), 'utf-8').encode('utf-8', 'ignore'),
+            'tweets': bytes(json.dumps(threat.tweets), 'utf-8').decode('utf-8', 'ignore'),
             'date': self.time_func()
         }
         cursor.execute(add_threat, data_threat)
