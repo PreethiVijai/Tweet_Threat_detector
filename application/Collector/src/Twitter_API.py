@@ -1,5 +1,6 @@
 import json
 import requests
+import base64
 
 from RabbitSender import RabbitSender
 
@@ -25,11 +26,23 @@ class API:
 
     def get_oauth2_bearer_token(self):
         """Get an OAuth2 bearer token"""
-        auth = (self.appkey, self.appsecret)
-        params = {'grant_type': 'client_credentials'}
-        response = requests.post(self.oauth2_url,
-                                 auth=auth,
-                                 params=params)
+        # auth = (self.appkey, self.appsecret)
+        key_secret = '{}:{}'.format(self.appkey, self.appsecret).encode('ascii')
+        b64_encoded_key = base64.b64encode(key_secret)
+        b64_encoded_key = b64_encoded_key.decode('ascii')
+        auth_headers = {
+                'Authorization': 'Basic {}'.format(b64_encoded_key),
+                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+            }
+        auth_data = {
+                'grant_type': 'client_credentials'
+            }
+        # params = {'grant_type': 'client_credentials'}
+        print(self.oauth2_url)
+        print(auth_headers)
+        print(auth_data)
+        response = requests.post(self.oauth2_url, headers=auth_headers, data=auth_data)
+        # response = requests.post(self.oauth2_url, auth=auth_url, params=params)
         if 'access_token' not in response.json():
             raise Exception("No access_token retrieved from Twitter, response is: " + response.text)
         self.oauth2_bearer_token = response.json()['access_token']
