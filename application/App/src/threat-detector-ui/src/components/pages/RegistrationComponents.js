@@ -23,6 +23,7 @@ handleChange(event)
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
+    console.log(value)
 
     this.setState({ [name]: value });
 
@@ -34,22 +35,22 @@ render() {
 
       <div>
       <RegistrationForm/>
-      <form formStyle onSubmit={this.handleSubmit}>
+    <form formStyle onSubmit={this.handleSubmit}>
     <div formStyle className="form-group">
         <label>Username</label>
-        <input type="text" className="form-control" placeholder="Username" name="username" required onChange={this.handleChange} />
+        <input type="text" className="form-control" placeholder="Username" name="username" required onChange={() => this.handleChange} />
     </div>
     <div formStyle className="form-group">
         <label>Password</label>
-        <input type="password" className="form-control" placeholder="Password" name="newPassword" required onChange={this.handleChange} />
+        <input type="password" className="form-control" placeholder="Password" name="newPassword" required onChange={() => this.handleChange} />
     </div>
     <div formStyle className="form-group">
         <label>First Name</label>
-        <input type="text" className="form-control" placeholder="First Name" name="firstName" onChange={this.handleChange} />
+        <input type="text" className="form-control" placeholder="First Name" name="firstName" onChange={() => this.handleChange} />
     </div>
     <div formStyle className="form-group">
         <label>Last Name</label>
-        <input type="text" className="form-control" placeholder="Last Name" name="lastName" onChange={this.handleChange} />
+        <input type="text" className="form-control" placeholder="Last Name" name="lastName" onChange={() => this.handleChange} />
     </div>
     <button type="submit" className="btn btn-primary">Submit</button>
 </form>
