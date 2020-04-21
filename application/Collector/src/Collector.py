@@ -15,7 +15,8 @@ def parse_args():
 
 def get_file_conents(file):
     with open(file, 'r') as f:
-        return f.read().strip()
+        res = f.read()
+        return res.strip()
 
 
 def main(apikey, apisecret, rabbit_host):
@@ -23,6 +24,8 @@ def main(apikey, apisecret, rabbit_host):
     apisecret = get_file_conents(apisecret)
 
     # Prepare Twitter and RabbitMQ connections
+    print(apikey)
+    print(apisecret)
     api = API(apikey, apisecret, rabbit_host)
     api.get_oauth2_bearer_token()
 
