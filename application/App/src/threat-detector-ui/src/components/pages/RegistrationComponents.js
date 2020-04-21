@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-//import {BrowserRouter as Router, Route} from 'react-router-dom';
-
+import axios from "axios";
+import { debounce } from "throttle-debounce";
 import RegistrationForm from './RegistrationForm'
 //constructor
 class RegistrationComponents extends Component{
@@ -18,6 +18,25 @@ this.state =
     message: ''
 };
 }
+SUGGEST_URL = "http://34.82.245.28:8080/suggest";
+
+componentWillMount() {
+  this.onSuggestionsFetchRequested = debounce(
+    500,
+    this.onSuggestionsFetchRequested
+  );
+}
+componentDidMount() {
+    axios.get(this.SUGGEST_URL, {}).then((res) => {
+      this.setState({ cacheAPISugestions: res.data });
+    });
+  }
+
+
+renderSuggestion = (suggestion) => {
+    return <span>{suggestion.name}</span>;
+  };
+
 handleChange(event)
 {
     const target = event.target;
@@ -28,6 +47,18 @@ handleChange(event)
     this.setState({ [name]: value });
 
     return true;
+}
+
+handleSubmit(event)
+{
+  /*code to persist data into database*/
+    event.preventDefault();
+    const { username, firstName, lastName, newPassword,success,message} = this.state;
+
+     axios.post('/', { username, firstName, lastName, newPassword,success,message}).then(res => {
+       console.log(res);
+       console.log(res.data);
+     })
 }
 
 render() {
@@ -52,7 +83,7 @@ render() {
         <label>Last Name</label>
         <input type="text" className="form-control" placeholder="Last Name" name="lastName" onChange={() => this.handleChange} />
     </div>
-    <button type="submit" className="btn btn-primary">Submit</button>
+    <button type="submit" className="btn btn-primary" onChange={() => this.handleSubmit}>Submit</button>
 </form>
       </div>
     );
