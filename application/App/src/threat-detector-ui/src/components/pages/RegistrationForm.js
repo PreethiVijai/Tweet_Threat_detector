@@ -28,8 +28,16 @@ export class RegistrationForm extends Component{
 render(){
   return(
     <div>
-    <h1>User Registration</h1>
-    <p>Please fill in all the required fields to create a new user account.</p>
+    <h1>
+      <font color={'#C0C0C0'}>
+        User Registration
+      </font>
+    </h1>
+    <p>
+      <font color={'#A9A9A9'}>
+        Please fill in all the required fields to create a new user account.
+      </font>
+    </p>
       {this.state.success === false &&
                  <p className="alert alert-danger" role="alert">
                      {this.state.message}

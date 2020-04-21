@@ -4,6 +4,16 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+Pre-reqs:
+
+### npm i mysql @types/mysql
+
+To connect react to mysql
+### npm i axios
+### npm i throttle-debounce
+
+
+
 ### `npm start`
 
 Runs the app in the development mode.<br />
