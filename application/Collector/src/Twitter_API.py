@@ -26,24 +26,6 @@ class API:
 
     def get_oauth2_bearer_token(self):
         """Get an OAuth2 bearer token"""
-        print(self.appkey)
-        print(self.appsecret)
-        '''
-        key_secret = '{}:{}'.format(self.appkey, self.appsecret).encode('ascii')
-        #b64_encoded_key = base64.b64encode(key_secret)
-        #b64_encoded_key = b64_encoded_key.decode('ascii')
-        auth_headers = {
-                'Authorization': 'Basic {}'.format(key_secret),
-                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-            }
-        auth_data = {
-                'grant_type': 'client_credentials'
-            }
-        print(self.oauth2_url)
-        print(auth_headers)
-        print(auth_data)
-        response = requests.post(self.oauth2_url, headers=auth_headers, data=auth_data)
-        '''
         auth = (self.appkey, self.appsecret)
         params = {'grant_type': 'client_credentials'}
         response = requests.post(self.oauth2_url, auth=auth, params=params)
