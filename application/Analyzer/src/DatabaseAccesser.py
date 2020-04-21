@@ -6,7 +6,7 @@ import json
 
 add_threat = ("INSERT INTO threats "
               "(id, type, location, confidence, tweets, date) "
-              "VALUES (%(id)i, %(type)s, %(location)s, %(confidence)f, %(tweets)s, %(date)s)")
+              "VALUES (%(id)s, %(type)s, %(location)s, %(confidence)s, %(tweets)s, %(date)s)")
 
 
 class DatabaseAccesser:
