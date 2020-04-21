@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
+
 import axios from "axios";
-import { debounce } from "throttle-debounce";
+
 import RegistrationForm from './RegistrationForm'
 //constructor
 class RegistrationComponents extends Component{
@@ -18,19 +19,7 @@ this.state =
     message: ''
 };
 }
-SUGGEST_URL = "http://34.82.245.28:8080/suggest";
 
-componentWillMount() {
-  this.onSuggestionsFetchRequested = debounce(
-    500,
-    this.onSuggestionsFetchRequested
-  );
-}
-componentDidMount() {
-    axios.get(this.SUGGEST_URL, {}).then((res) => {
-      this.setState({ cacheAPISugestions: res.data });
-    });
-  }
 
 
 renderSuggestion = (suggestion) => {
@@ -53,12 +42,24 @@ handleSubmit(event)
 {
   /*code to persist data into database*/
     event.preventDefault();
-    const { username, firstName, lastName, newPassword,success,message} = this.state;
+    console.log(this.refs["simpleForm"].getFormValues());
+       let obj = this.refs["simpleForm"].getFormValues();
+       fetch("http://localhost:3000/insert", {
+         method: "post",
+         headers: {
+           Accept: "application/json",
+           "Content-Type": "application/json"
+         },
+         body: JSON.stringify(obj)
+       });
+       this.setState({success:'True'});
+       this.setState({message:'Successful'});
+       const sql1 = 'CREATE TABLE Threatdb (username varchar(20) not null, firstName varchar(20) not null,lastName varchar(20) not null,newPassword varchar(20) not null,success varchar(20) not null,message varchar(20) not null )';
+       const sql = 'INSERT INTO Threatdb(username,firstName,lastName,newPassword,success,message) VALUES(username,firstName,lastName,newPassword,success,message)';
+       connection.query(sql1);
+       connection.query(sql);
+       connection.end();
 
-     axios.post('/', { username, firstName, lastName, newPassword,success,message}).then(res => {
-       console.log(res);
-       console.log(res.data);
-     })
 }
 
 render() {
@@ -66,20 +67,20 @@ render() {
 
       <div>
       <RegistrationForm/>
-    <form formStyle onSubmit={() => this.handleSubmit}>
-    <div formStyle className="form-group">
+    <form  ref="simpleForm" onSubmit={() => this.handleSubmit}>
+    <div  className="form-group">
         <label>Username</label>
         <input type="text" className="form-control" placeholder="Username" name="username" required onChange={() => this.handleChange} />
     </div>
-    <div formStyle className="form-group">
+    <div  className="form-group">
         <label>Password</label>
         <input type="password" className="form-control" placeholder="Password" name="newPassword" required onChange={() => this.handleChange} />
     </div>
-    <div formStyle className="form-group">
+    <div  className="form-group">
         <label>First Name</label>
         <input type="text" className="form-control" placeholder="First Name" name="firstName" onChange={() => this.handleChange} />
     </div>
-    <div formStyle className="form-group">
+    <div  className="form-group">
         <label>Last Name</label>
         <input type="text" className="form-control" placeholder="Last Name" name="lastName" onChange={() => this.handleChange} />
     </div>
@@ -89,14 +90,15 @@ render() {
     );
   }
 }
-const formStyle={
-  display: 'block',
-    fontSize: '11px',
-    padding: '4px 2px',
-    border: 'solid 1px #aacfe4',
-    width: '70px',
-    margin:'2px 0 20px 10px'
-}
 
 
-export default RegistrationComponents;
+const mysql = require('mysql');
+const config = mysql.createConnection({
+   host     : 'localhost',
+   user     : 'root',
+   password : 'priyanka',
+   database : 'ThreatDetectorDB',
+   port: 3306
+  });
+
+const connection = mysql.createConnection(config);
