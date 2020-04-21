@@ -66,7 +66,7 @@ render() {
 
       <div>
       <RegistrationForm/>
-    <form formStyle onSubmit={this.handleSubmit}>
+    <form formStyle onSubmit={() => this.handleSubmit}>
     <div formStyle className="form-group">
         <label>Username</label>
         <input type="text" className="form-control" placeholder="Username" name="username" required onChange={() => this.handleChange} />
@@ -83,7 +83,7 @@ render() {
         <label>Last Name</label>
         <input type="text" className="form-control" placeholder="Last Name" name="lastName" onChange={() => this.handleChange} />
     </div>
-    <button type="submit" className="btn btn-primary" onChange={() => this.handleSubmit}>Submit</button>
+    <button type="submit" className="btn btn-primary" >Submit</button>
 </form>
       </div>
     );
