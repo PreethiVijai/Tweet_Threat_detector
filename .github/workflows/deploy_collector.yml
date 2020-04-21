@@ -18,6 +18,7 @@ jobs:
       run: bash application/Collector/runTests.sh || exit 1
 
   build:
+    needs: test
     if: success()
 
     runs-on: ubuntu-latest
