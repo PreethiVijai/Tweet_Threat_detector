@@ -1,0 +1,49 @@
+name: Docker Image CI
+
+on:
+  pull_request:
+    branches:
+      - master
+      - development
+    paths:
+      - 'application/threat-detector-ui/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Test
+      run: bash application/threat-detector-ui/runTests.sh || exit 1
+
+  build:
+    needs: test
+    if: success()
+
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Decrypte key file
+      run: ./.github/scripts/decrypt_key.sh
+      env: 
+        PASSPHRASE: ${{ secrets.ENCRYPT_KEY }}
+    - name: Authenticate to GCP
+      run: gcloud auth activate-service-account --key-file=$HOME/secrets/key.json
+    - name: Set Porject
+      run: gcloud config set project ${{ secrets.PROJECT_ID}}
+    - name: Configure Docker
+      run: gcloud auth configure-docker
+    - name: build pre-process
+      run: npm run-script --prefix application/threat-detector-ui build
+    - name: Build the Docker image
+      run: docker build application/threat-detector-ui -t gcr.io/${{ secrets.PROJECT_ID}}/threat-detector-ui:$GITHUB_SHA
+    - name: Push the Docker image
+      run: docker push gcr.io/${{ secrets.PROJECT_ID}}/threat-detector-ui:$GITHUB_SHA
+    - name: Configure kubernetes for master
+      if: github.base_ref == 'master'
+      run: gcloud container clusters get-credentials --zone us-central1-c cluster-1
+    - name: Configure kubernetes for development
+      if: github.base_ref == 'development'
+      run: gcloud container clusters get-credentials --zone us-central1-c cluster-2
+    - name: Set deployment on image
+      run: kubectl set image deployment/threat-detector-ui threat-detector-ui=gcr.io/${{ secrets.PROJECT_ID}}/threat-detector-ui:$GITHUB_SHA
