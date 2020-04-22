@@ -40,9 +40,11 @@ jobs:
       run: npm run-script build
       working-directory: application/threat-detector-ui
     - name: Build the Docker image
-      run: docker build application/threat-detector-ui -t gcr.io/${{ secrets.PROJECT_ID}}/threat-detector-ui:$GITHUB_SHA
+      run: docker build -t gcr.io/${{ secrets.PROJECT_ID}}/threat-detector-ui:$GITHUB_SHA .
+      working-directory: application/threat-detector-ui
     - name: Push the Docker image
       run: docker push gcr.io/${{ secrets.PROJECT_ID}}/threat-detector-ui:$GITHUB_SHA
+      working-directory: application/threat-detector-ui
     - name: Configure kubernetes for master
       if: github.base_ref == 'master'
       run: gcloud container clusters get-credentials --zone us-central1-c cluster-1
