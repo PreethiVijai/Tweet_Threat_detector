@@ -9,6 +9,7 @@ body {
   background-size: cover;
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.4;
+  color: Green;
 }
 
 a {
@@ -20,6 +21,7 @@ form {
   border: thin solid white;
   padding: 2rem;
   margin: 2rem;
+  color: White;
 }
 
 .formtext {
