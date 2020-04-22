@@ -12,6 +12,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "foreman": "^3.0.1",
+    "jwt-decode": "^2.2.0",
     "marked": "^1.0.0",
     "mongoose": "^5.9.10",
     "mysql": "^2.18.1",
@@ -48,8 +49,11 @@
   "directories": {
     "test": "test"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "cross-env": "^7.0.2"
+  },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "proxy": "http://localhost:5000"
 }
