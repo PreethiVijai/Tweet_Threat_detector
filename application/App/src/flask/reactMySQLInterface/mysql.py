@@ -33,7 +33,7 @@ def register():
     message = request.get_json()['message']
     #created = datetime.utcnow()
 
-    cur.execute("INSERT INTO reg_form (username, firstName, lastName, newPassword, success,message) VALUES ('" +
+    cur.execute("INSERT INTO users (username, firstName, lastName, newPassword, success,message) VALUES ('" +
 		str(username) + "', '" +
 		str(firstName) + "', '" +
 		str(lastName) + "', '" +
@@ -76,4 +76,5 @@ if __name__ == '__main__':
     #app.run(debug=True)
     app.secret_key="1234567"
     from waitress import serve
-    serve(app, host='0.0.0.0', port=8080)
+    #serve(app, host='0.0.0.0', port=8080)
+    serve(app, host='localhost', port=3000)
