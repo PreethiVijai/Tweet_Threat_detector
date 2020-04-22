@@ -6,7 +6,7 @@ import json
 
 add_threat = ("INSERT INTO threats "
               "(id, type, location, confidence, tweets, date) "
-              "VALUES (%(id)i, %(type)s, %(location)s, %(confidence)f, %(tweets)s, %(date)s)")
+              "VALUES (%(id)s, %(type)s, %(location)s, %(confidence)s, %(tweets)s, %(date)s)")
 
 
 class DatabaseAccesser:
@@ -16,16 +16,16 @@ class DatabaseAccesser:
         self.time_func = date.today
 
     def prepare_connection(self):
-        self.connection = mysql.connector.connect(user="", password="", host=self.address, database=self.database)
+        self.connection = mysql.connector.connect(user="root", password="", host=self.address, database=self.database)
 
     def add_threat(self, threat):
         cursor = self.connection.cursor()
         data_threat = {
             'id': threat.ID,
             'type': threat.type,
-            'location': threat.location,
+            'location': bytes(threat.location, 'utf-8').decode('utf-8', 'ignore'),
             'confidence': threat.confidence,
-            'tweets': json.dumps(threat.tweets),
+            'tweets': bytes(json.dumps(threat.tweets), 'utf-8').decode('utf-8', 'ignore'),
             'date': self.time_func()
         }
         cursor.execute(add_threat, data_threat)
