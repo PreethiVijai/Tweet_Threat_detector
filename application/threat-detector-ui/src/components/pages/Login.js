@@ -25,8 +25,9 @@ class Login extends Component {
     }
 
     login(user).then(res => {
+      console.log(this.props.history);
       if (!res.error) {
-        this.props.history.push(`/profile`)
+        this.props.history.push('users/profile')
       }
     })
   }
