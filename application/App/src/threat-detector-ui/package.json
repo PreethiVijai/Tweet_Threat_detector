@@ -49,10 +49,9 @@
   "directories": {
     "test": "test"
   },
-  "devDependencies": {
-    "cross-env": "^7.0.2"
-  },
+  "devDependencies": {},
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "proxy": "http://localhost:5000"
 }
