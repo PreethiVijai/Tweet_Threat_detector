@@ -23,13 +23,14 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
+  labels:
+    app: threat-detector-ui
   name: threat-detector-ui
 spec:
-  type: LoadBalancer
   ports:
     - port: 80
       targetPort: 80
       protocol: TCP
-      nodePort: 31000
   selector:
     app: threat-detector-ui
+  type: ClusterIP
