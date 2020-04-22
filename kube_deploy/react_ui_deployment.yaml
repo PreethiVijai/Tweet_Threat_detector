@@ -1,20 +1,20 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: my-react-app
+  name: threat-detector-ui
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: my-react-app
+      app: threat-detector-ui
   template:
     metadata:
       labels:
-        app: my-react-app
+        app: threat-detector-ui
     spec:
       containers:
-        - name: my-react-app
-          image: gcr.io/idyllic-kit-269502/app:latest
+        - name: threat-detector-ui
+          image: gcr.io/idyllic-kit-269502/threat-detector-ui:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 80
@@ -23,7 +23,7 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: my-react-app
+  name: threat-detector-ui
 spec:
   type: LoadBalancer
   ports:
@@ -32,4 +32,4 @@ spec:
       protocol: TCP
       nodePort: 31000
   selector:
-    app: my-react-app
+    app: threat-detector-ui
