@@ -35,8 +35,10 @@ jobs:
       run: gcloud auth configure-docker
     - name: Install NPM
       run: npm install
+      working-directory: application/threat-detector-ui
     - name: NPM build
       run: npm run-script build
+      working-directory: application/threat-detector-ui
     - name: Build the Docker image
       run: docker build application/threat-detector-ui -t gcr.io/${{ secrets.PROJECT_ID}}/threat-detector-ui:$GITHUB_SHA
     - name: Push the Docker image
