@@ -6,8 +6,7 @@ on:
       - master
       - development
     paths:
-      - 'application/threat-detector-ui/src/**'
-      - 'application/threat-detector-ui/Dockerfile'
+      - 'application/threat-detector-ui/**'
 
 jobs:
   test:
