@@ -18,6 +18,7 @@ jobs:
       run: bash application/Collector/runTests.sh || exit 1
 
   build:
+    needs: test
     if: success()
 
     runs-on: ubuntu-latest
@@ -34,7 +35,7 @@ jobs:
     - name: Configure Docker
       run: gcloud auth configure-docker
     - name: Build the Docker image
-      run: docker build application/App --file application/Collector/Dockerfile --tag gcr.io/${{ secrets.PROJECT_ID}}/collector:$GITHUB_SHA --build-arg APIKEY=${{ secrets.API_KEY }} --build-arg APISECRET=${{ secrets.API_SECRET_KEY }}
+      run: docker build application/Collector --file application/Collector/Dockerfile --tag gcr.io/${{ secrets.PROJECT_ID}}/collector:$GITHUB_SHA --build-arg APIKEY=${{ secrets.API_KEY }} --build-arg APISECRET=${{ secrets.API_SECRET_KEY }}
     - name: Push the Docker image
       run: docker push gcr.io/${{ secrets.PROJECT_ID}}/collector:$GITHUB_SHA
     - name: Configure kubernetes for master

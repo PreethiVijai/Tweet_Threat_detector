@@ -27,6 +27,8 @@ render(){
        <Route exact path="/register" component={RegistrationComponents} />
          <Route exact path="/login" component={Login} />
           <Route exact path="/profile" component={UserProfile} />
+        <body/>
+        <RegistrationComponents rf ={this.RegistrationComponents}/>
       </div>
     </div>
     </Router>
