@@ -14,6 +14,8 @@ app.config['MYSQL_DB'] = 'Threatdetectordb'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 app.config['JWT_SECRET_KEY'] = 'secret'
 app.config['MYSQL_HOST'] = 'mysql'
+#app.config['MYSQL_PASSWORD'] = 'priyanka'
+##app.config['MYSQL_HOST'] = 'localhost'
 
 mysql = MySQL(app)
 bcrypt = Bcrypt(app)
@@ -29,6 +31,7 @@ def register():
     email = request.get_json()['email']
     password = bcrypt.generate_password_hash(request.get_json()['password']).decode('utf-8')
     created = datetime.utcnow()
+    cur.execute("CREATE TABLE IF NOT EXISTS  users (first_name varchar(250),last_name varchar(250), email varchar(250),password varchar(250),created varchar(250))")
 
     cur.execute("INSERT INTO users (first_name, last_name, email, password, created) VALUES ('" +
 		str(first_name) + "', '" +
