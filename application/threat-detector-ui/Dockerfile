@@ -7,6 +7,8 @@ RUN python3 -m pip install flask_cors flask_bcrypt flask_jwt_extended
 WORKDIR /threat-detecter-ui
 # Upload code
 COPY package.json /threat-detecter-ui/
+RUN npm install -g npm@latest
+RUN rm -rf node_modules
 RUN npm install
 COPY public/ /threat-detecter-ui/public/
 COPY src/ /threat-detecter-ui/src/
