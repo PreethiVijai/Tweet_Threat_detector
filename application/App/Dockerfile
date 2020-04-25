@@ -7,6 +7,6 @@ RUN apt-get update && apt-get install -y git curl default-mysql-client default-l
 ADD requirements.txt /App/requirements.txt
 RUN python3 -m pip install -r requirements.txt
 # Upload code
-ADD src/* /App
+ADD src/* /App/
 EXPOSE 3000
 CMD python3 mysqlloginreg.py
