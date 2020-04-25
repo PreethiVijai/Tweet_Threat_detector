@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 
 class Landing extends Component {
@@ -40,6 +40,7 @@ class Landing extends Component {
     )
 
     return (
+      <Fragment>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark rounded">
         <button
           className="navbar-toggler"
@@ -67,6 +68,12 @@ class Landing extends Component {
           {localStorage.usertoken ? userLink : loginRegLink}
         </div>
       </nav>
+      <div className="jumbotron mt-5">
+        <div className="col-sm-8 mx-auto">
+          <h1 className="text-center">THREAT LEVEL MIDNIGHT</h1>
+        </div>
+      </div>
+       </Fragment>
     )
   }
 }
