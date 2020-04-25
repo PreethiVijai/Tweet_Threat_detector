@@ -19,3 +19,21 @@ spec:
           ports:
             - containerPort: 80
       restartPolicy: Always
+<<<<<<< HEAD
+=======
+---
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    app: threat-detector-ui
+  name: threat-detector-ui
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    app: threat-detector-ui
+  type: ClusterIP
+>>>>>>> a7cc9421bc406a9e0945a75c80f3127fefe828aa
