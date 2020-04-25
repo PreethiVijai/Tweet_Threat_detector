@@ -8,5 +8,5 @@ ADD requirements.txt /App/requirements.txt
 RUN python3 -m pip install -r requirements.txt
 # Upload code
 ADD src/* /App/
-EXPOSE 3000
+EXPOSE 8000
 CMD python3 mysqlloginreg.py
