@@ -9,11 +9,11 @@ from flask_jwt_extended import (create_access_token)
 app = Flask(__name__)
 
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'priyanka'
+app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'Threatdetectordb'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 app.config['JWT_SECRET_KEY'] = 'secret'
-app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_HOST'] = 'mysql'
 
 mysql = MySQL(app)
 bcrypt = Bcrypt(app)
@@ -69,4 +69,3 @@ def login():
 
 if __name__ == '__main__':
     app.run(port=8888, debug='true')
-    
