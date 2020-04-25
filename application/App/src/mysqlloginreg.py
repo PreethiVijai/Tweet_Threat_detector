@@ -20,7 +20,6 @@ app.config['MYSQL_HOST'] = 'mysql'
 mysql = MySQL(app)
 bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
-
 CORS(app)
 
 @app.route('/users/register', methods=['POST'])
