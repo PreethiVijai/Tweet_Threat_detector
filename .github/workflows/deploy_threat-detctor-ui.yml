@@ -25,7 +25,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Decrypte key file
       run: ./.github/scripts/decrypt_key.sh
-      env: 
+      env:
         PASSPHRASE: ${{ secrets.ENCRYPT_KEY }}
     - name: Authenticate to GCP
       run: gcloud auth activate-service-account --key-file=$HOME/secrets/key.json
@@ -34,6 +34,8 @@ jobs:
     - name: Configure Docker
       run: gcloud auth configure-docker
     - name: Install NPM
+      run: npm install -g npm@latest
+      run: rm -rf node_modules
       run: npm install
       working-directory: application/threat-detector-ui
     - name: NPM build
