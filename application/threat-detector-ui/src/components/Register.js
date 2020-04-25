@@ -34,12 +34,13 @@ class Register extends Component {
     })
   }
 
+
   render() {
     return (
       <div className="container">
         <div className="row">
           <div className="col-md-6 mt-5 mx-auto">
-            <form noValidate onSubmit={this.onSubmit}>
+            <form noValidate style={divStyle} onSubmit={this.onSubmit}>
               <h1 className="h3 mb-3 font-weight-normal">Register</h1>
               <div className="form-group">
                 <label htmlFor="name">First name</label>
@@ -98,5 +99,9 @@ class Register extends Component {
     )
   }
 }
-
+const divStyle = {
+backgroundColor: '#D3D3D3',
+padding:'20px',
+borderRadius:'20px',
+};
 export default Register
