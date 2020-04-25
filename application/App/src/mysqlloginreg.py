@@ -15,12 +15,11 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 app.config['JWT_SECRET_KEY'] = 'secret'
 app.config['MYSQL_HOST'] = 'mysql'
 #app.config['MYSQL_PASSWORD'] = 'priyanka'
-##app.config['MYSQL_HOST'] = 'localhost'
+#app.config['MYSQL_HOST'] = 'localhost'
 
 mysql = MySQL(app)
 bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
-
 CORS(app)
 
 @app.route('/users/register', methods=['POST'])
