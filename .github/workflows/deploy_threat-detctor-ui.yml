@@ -33,12 +33,6 @@ jobs:
       run: gcloud config set project ${{ secrets.PROJECT_ID}}
     - name: Configure Docker
       run: gcloud auth configure-docker
-    - name: Install NPM
-      run: npm install
-      working-directory: application/threat-detector-ui
-    - name: NPM build
-      run: npm run-script build
-      working-directory: application/threat-detector-ui
     - name: Build the Docker image
       run: docker build -t gcr.io/${{ secrets.PROJECT_ID}}/threat-detector-ui:$GITHUB_SHA .
       working-directory: application/threat-detector-ui
