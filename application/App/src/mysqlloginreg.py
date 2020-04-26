@@ -72,5 +72,25 @@ def login():
 
     return result
 
+@app.route('/users/tweets', methods=['POST'])
+def tweets():
+    cur = mysql.connection.cursor()
+    location =request.get_json()['location']
+
+    cur.execute("SELECT * FROM threats where location = '" + str(location) + "'")
+
+    data=cur.fetchall()
+    tweet_arr={}
+    i = 0
+    for rows in data:
+        tweet_arr[i]=rows
+        i += 1
+    #access_token = create_access_token(identity = {'tweet_arr': tweet_arr})
+    #print(tweet_arr)
+    #print(access_token)
+    print(tweet_arr)
+
+    return tweet_arr
+
 if __name__ == '__main__':
     app.run(port=8888, debug='true')
