@@ -75,9 +75,8 @@ def login():
 @app.route('/users/tweets', methods=['POST'])
 def tweets():
     cur = mysql.connection.cursor()
-    location =request.get_json()['location']
 
-    cur.execute("SELECT * FROM threats where location = '" + str(location) + "'")
+    cur.execute("SELECT * FROM threats  LIMIT 100 " )
 
     data=cur.fetchall()
     tweet_arr={}

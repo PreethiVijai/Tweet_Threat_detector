@@ -33,9 +33,7 @@ export const login = user => {
 
 export const tweets = user => {
   return axios
-    .post('users/tweets', {
-      location: user.location
-    })
+    .post('users/tweets', )
     .then(response => {
       /*localStorage.setItem('usertoken', response.data)*/
       console.log("usr")

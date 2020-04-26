@@ -12,7 +12,8 @@
     "react-router-redux": "^4.0.8",
     "react-scripts": "1.1.5",
     "react-simple-heatmap": "^2.0.2",
-    "react-stringify": "^1.0.0"
+    "react-stringify": "^1.0.0",
+    "react-usa-map": "^1.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -20,5 +21,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:5000"
+  "proxy": "http://localhost:8889"
 }
