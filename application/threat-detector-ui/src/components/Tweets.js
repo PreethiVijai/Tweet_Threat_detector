@@ -6,6 +6,7 @@ import {Bar} from 'react-chartjs-2';
 
 
 class Tweets extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -15,6 +16,7 @@ class Tweets extends Component {
       tweet_location:[],
       tweet_data:[],
       tweet_date:[],
+      tweet_day:[],
       chart_state:{}
     }
   }
@@ -38,19 +40,18 @@ class Tweets extends Component {
         })
 
         console.log("date")
-        console.log(this.state.tweet_date)
+        console.log(this.state.tweet_date.length)
 
-   })
-
-      /*  var i
+        var i
         if(this.state.tweet_date.length > 0){
           for(i=0; i<this.state.tweet_date.length;i++){
             this.state.tweet_day[i]=parseInt(this.state.tweet_date[i].substring(8,10))
+            console.log(this.state.tweet_date[i].substring(8,10))
           }
 
         }
-        console.log("date")
-        console.log(this.state.tweet_day)*/
+        console.log("date1")
+        console.log(this.state.tweet_day)
 
         this.state.chart_state = {
           labels: this.state.tweet_location,
@@ -60,19 +61,20 @@ class Tweets extends Component {
               backgroundColor: 'red',
               borderColor: 'red',
               borderWidth: 2,
-              data: this.state.tweet_type
+              data: this.state.tweet_day
             }
           ]
         }
         console.log("chart state")
         console.log(this.state.chart_state)
+        return this.state.chart_state
 
 
+      })
 
-
-
-
+      return this.state.chart_state
     }
+
     handleSearchInputChanges= (e)=> {
       e.preventDefault()
       this.setState( {location: e.target.value })
@@ -82,6 +84,20 @@ class Tweets extends Component {
       e.preventDefault()
       console.log(this.state.location)
     }
+    charState = (e) =>{
+      console.log("whyyyy")
+
+      if(  this._isMounted ){
+        console.log("data_present")
+      console.log(this.state.chart_state)
+      return(this.state.chart_state)
+
+    }
+    else{
+      this.componentDidMount()
+    }
+
+    }
 
 
     render() {
@@ -90,42 +106,42 @@ class Tweets extends Component {
         <div id="heatmap" style={divStyle}>
           HEATMAP
           <USAmap tweet_location={this.state.tweet_location}></USAmap>
-        </div>
+      </div>
 
-        <div className="Location Search">
-          <form>
-            <input
-              style ={search_style}
-              type="text"
-              name="location"
-              placeholder="Enter location of search"
-              value={this.state.location}
-              onChange={this.handleSearchInputChanges.bind(this)}
-              />
-            <input style = {buttonStyle} onClick={this.callSearchFunction.bind(this)} type="submit" value="SEARCH" />
-          </form>
-        </div>
-        <div>
+      <div className="Location Search">
+        <form>
+          <input
+            style ={search_style}
+            type="text"
+            name="location"
+            placeholder="Enter location of search"
+            value={this.state.location}
+            onChange={this.handleSearchInputChanges.bind(this)}
+          />
+          <input style = {buttonStyle} onClick={this.callSearchFunction.bind(this)} type="submit" value="SEARCH" />
+      </form>
+    </div>
+    <div>
 
-          <Bar
-            data={this.state.chart_state}
-            options={{
-              title:{
-                display:true,
-                text:'Tweet type vs location',
-                fontSize:20
-              },
-              legend:{
-                display:true,
-                position:'right'
-              }
-            }}
-            />
-        </div>
+      <Bar
+        data={this.componentwillmount}
+        options={{
+          title:{
+            display:true,
+            text:'Threat Type vs date',
+            fontSize:20
+          },
+          legend:{
+            display:true,
+            position:'right'
+          }
+        }}
+      />
+    </div>
 
-      </Fragment>
-    )
-  }
+  </Fragment>
+)
+}
 
 }
 
