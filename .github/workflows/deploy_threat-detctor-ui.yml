@@ -33,7 +33,11 @@ jobs:
       run: gcloud config set project ${{ secrets.PROJECT_ID}}
     - name: Configure Docker
       run: gcloud auth configure-docker
-  
+    - name: setup to cleanup NPM libraries
+      run: sudo chown -R $USER ~/.npm
+      run: sudo chown -R $USER /usr/lib/node_modules
+      run: sudo chown -R $USER /usr/local/lib/node_module
+
     - name: Install update NPM
       run: npm install -g npm@latest
       working-directory: application/threat-detector-ui
