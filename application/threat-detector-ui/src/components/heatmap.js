@@ -81,9 +81,16 @@ class App extends Component {
     'Wyoming': 'WY'
 }
 var i = 0
+if(this.state.tweet_location.length>0){
 
 for(i = 0; i < this.state.tweet_location.length; i++){
+  if(us_state_abbrev[this.state.tweet_location[i]]){
     this.state.tweet_location_abbr[i]=us_state_abbrev[this.state.tweet_location[i]]
+  }
+  else{
+    this.state.tweet_location_abbr[i]=this.state.tweet_location[i]
+  }
+}
 }
 }
 

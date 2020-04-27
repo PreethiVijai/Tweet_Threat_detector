@@ -9,13 +9,13 @@ from flask_jwt_extended import (create_access_token)
 app = Flask(__name__)
 
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
+#app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'Threatdetectordb'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 app.config['JWT_SECRET_KEY'] = 'secret'
-app.config['MYSQL_HOST'] = 'mysql'
-#app.config['MYSQL_PASSWORD'] = 'priyanka'
-#app.config['MYSQL_HOST'] = 'localhost'
+#app.config['MYSQL_HOST'] = 'mysql'
+app.config['MYSQL_PASSWORD'] = 'priyanka'
+app.config['MYSQL_HOST'] = 'localhost'
 
 mysql = MySQL(app)
 bcrypt = Bcrypt(app)
@@ -84,9 +84,7 @@ def tweets():
     for rows in data:
         tweet_arr[i]=rows
         i += 1
-    #access_token = create_access_token(identity = {'tweet_arr': tweet_arr})
-    #print(tweet_arr)
-    #print(access_token)
+
     print(tweet_arr)
 
     return tweet_arr

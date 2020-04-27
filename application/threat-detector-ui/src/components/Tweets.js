@@ -84,7 +84,7 @@ callSearchFunction= (e)=>{
                     onChange={this.handleSearchInputChanges.bind(this)}
 
                   />
-                <input onClick={this.callSearchFunction.bind(this)} type="submit" value="SEARCH" />
+                <input style = {buttonStyle} onClick={this.callSearchFunction.bind(this)} type="submit" value="SEARCH" />
                 </form>
               </div>
               <div>
@@ -119,6 +119,40 @@ padding: "10px",
 width: "300px",
 borderRadius: "20px"
 };
+
+
+const buttonStyle={
+  display: 'inline-block',
+  zoom:' 1',
+  padding: '6px 20px',
+  margin:'10px',
+  cursor: 'pointer',
+  border: '1px solid #bbb',
+  overflow: 'visible',
+  font: 'bold 13px arial, helvetica, sans-serif',
+  textDecoration: 'none',
+  whiteSpace: 'nowrap',
+  color: '#555',
+
+  backgroundColor: '#ddd',
+  backgroundImage: '-webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,1)), to(rgba(255,255,255,0)))',
+  backgroundImage: '-webkit-linear-gradient(top, rgba(255,255,255,1), rgba(255,255,255,0))',
+  backgroundImage: '-moz-linear-gradient(top, rgba(255,255,255,1), rgba(255,255,255,0))',
+  backgroundImage: '-ms-linear-gradient(top, rgba(255,255,255,1), rgba(255,255,255,0))',
+  backgroundImage: '-o-linear-gradient(top, rgba(255,255,255,1), rgba(255,255,255,0))',
+  backgroundImage: 'linear-gradient(top, rgba(255,255,255,1), rgba(255,255,255,0))',
+
+
+  transition: 'background-color .2s ease-out',
+  backgroundClip: 'padding-box', /* Fix bleeding */
+
+  borderRadius: '3px',
+
+  boxShadow: '0 1px 0 rgba(0, 0, 0, .3), 0 2px 2px -1px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .3) inset',
+  textShadow: '0 1px 0 rgba(255,255,255, .9)',
+
+  userSelect: 'none'
+}
 
 
 const background = (rgb) => {
