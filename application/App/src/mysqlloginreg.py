@@ -84,9 +84,7 @@ def tweets():
     for rows in data:
         tweet_arr[i]=rows
         i += 1
-    #access_token = create_access_token(identity = {'tweet_arr': tweet_arr})
-    #print(tweet_arr)
-    #print(access_token)
+
     print(tweet_arr)
 
     return tweet_arr
