@@ -35,7 +35,9 @@ jobs:
       run: gcloud auth configure-docker
     - name: setup to cleanup NPM libraries
       run: sudo chown -R $USER ~/.npm
+    - name: setup to cleanup NPM libraries
       run: sudo chown -R $USER /usr/lib/node_modules
+    - name: setup to cleanup NPM libraries
       run: sudo chown -R $USER /usr/local/lib/node_module
 
     - name: Install update NPM
