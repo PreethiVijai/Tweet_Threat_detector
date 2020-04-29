@@ -3,3 +3,7 @@ waitress
 flask-mysqldb
 Flask-WTF
 passlib
+datetime
+flask_cors
+flask_bcrypt
+flask_jwt_extended
