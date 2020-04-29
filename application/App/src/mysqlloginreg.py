@@ -72,5 +72,22 @@ def login():
 
     return result
 
+@app.route('/users/tweets', methods=['POST'])
+def tweets():
+    cur = mysql.connection.cursor()
+
+    cur.execute("SELECT * FROM threats  LIMIT 100 " )
+
+    data=cur.fetchall()
+    tweet_arr={}
+    i = 0
+    for rows in data:
+        tweet_arr[i]=rows
+        i += 1
+
+    print(tweet_arr)
+
+    return tweet_arr
+
 if __name__ == '__main__':
     app.run(port=8888, debug='true')

@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+
 export const register = newUser => {
   return axios
     .post('users/register', {
@@ -26,6 +27,22 @@ export const login = user => {
     })
     .catch(err => {
       console.log(err)
+      return err
+    })
+}
+
+export const tweets = user => {
+  return axios
+    .post('users/tweets', )
+    .then(response => {
+      /*localStorage.setItem('usertoken', response.data)*/
+      console.log("usr")
+      console.log(response)
+      return response.data
+    })
+    .catch(err => {
+      console.log(err)
+      return err
     })
 }
 

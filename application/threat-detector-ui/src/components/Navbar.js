@@ -68,7 +68,7 @@ class Landing extends Component {
           {localStorage.usertoken ? userLink : loginRegLink}
         </div>
       </nav>
-      <div className="jumbotron mt-5">
+      <div style={ribbonStyle} className="jumbotron mt-5">
         <div className="col-sm-8 mx-auto">
           <h1 className="text-center">THREAT LEVEL MIDNIGHT</h1>
         </div>
@@ -77,5 +77,11 @@ class Landing extends Component {
     )
   }
 }
+
+const ribbonStyle={
+
+    backgroundColor: 'darkgray',
+    borderRadius: '50px'
+  }
 
 export default withRouter(Landing)
