@@ -8,5 +8,9 @@ ADD requirements.txt /App/requirements.txt
 RUN python3 -m pip install -r requirements.txt
 # Upload code
 ADD src/* /App/
-EXPOSE 3000
-CMD python3 mysqlloginreg.py
+
+#expose http port
+EXPOSE 80
+
+
+CMD [ "python3", "mysqlloginreg.py", "-u" ]
