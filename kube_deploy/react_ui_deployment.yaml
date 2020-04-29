@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: threat-detector-ui
-          image: gcr.io/idyllic-kit-269502/threat-detector-ui:latest
+          image: gcr.io/idyllic-kit-269502/threat-detector-ui:v1
           imagePullPolicy: Always
           ports:
             - containerPort: 80

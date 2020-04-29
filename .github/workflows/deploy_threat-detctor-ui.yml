@@ -33,14 +33,6 @@ jobs:
       run: gcloud config set project ${{ secrets.PROJECT_ID}}
     - name: Configure Docker
       run: gcloud auth configure-docker
-
-
-    - name: Install update NPM
-      run: npm install -g npm@latest
-      working-directory: application/threat-detector-ui
-    - name: Remove Node modules
-      run: rm -rf node_modules
-      working-directory: application/threat-detector-ui
     - name: Install NPM
       run: npm install
       working-directory: application/threat-detector-ui
