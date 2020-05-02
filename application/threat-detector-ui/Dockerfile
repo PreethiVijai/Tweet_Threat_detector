@@ -14,5 +14,5 @@ COPY src/ /threat-detecter-ui/src/
 RUN ls src
 RUN npm run build
 # Expose port to run on
-EXPOSE 80
+EXPOSE 3000
 CMD npm start
