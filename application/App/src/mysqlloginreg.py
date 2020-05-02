@@ -24,6 +24,8 @@ CORS(app)
 
 @app.route('/users/register', methods=['POST'])
 def register():
+    print(request)
+
     cur = mysql.connection.cursor()
     first_name = request.get_json()['first_name']
     last_name = request.get_json()['last_name']
@@ -61,6 +63,8 @@ def login():
     password = request.get_json()['password']
     result = ""
 
+    print(request)
+
     cur.execute("SELECT * FROM users where email = '" + str(email) + "'")
     rv = cur.fetchone()
 
@@ -74,6 +78,8 @@ def login():
 
 @app.route('/users/tweets', methods=['POST'])
 def tweets():
+    print(request)
+
     cur = mysql.connection.cursor()
 
     cur.execute("SELECT * FROM threats  LIMIT 100 " )
