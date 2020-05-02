@@ -13,6 +13,7 @@ COPY public/ /threat-detecter-ui/public/
 COPY src/ /threat-detecter-ui/src/
 RUN ls src
 RUN npm run build
+ENV PUBLIC_URL 'accesser'
 # Expose port to run on
 EXPOSE 3000
 CMD npm start
