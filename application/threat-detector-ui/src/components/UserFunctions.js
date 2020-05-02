@@ -3,6 +3,7 @@ import axios from 'axios'
 
 export const register = newUser => {
     axios.defaults.baseURL = 'accesser:8080/'
+    console.log('Register Attempted')
   return axios
     .post('users/register', {
       first_name: newUser.first_name,
@@ -18,6 +19,7 @@ export const register = newUser => {
 
 export const login = user => {
     axios.defaults.baseURL = 'accesser:8080/'
+    console.log('Login Attempted')
   return axios
     .post('users/login', {
       email: user.email,
