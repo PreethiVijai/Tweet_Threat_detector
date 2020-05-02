@@ -90,4 +90,4 @@ def tweets():
     return tweet_arr
 
 if __name__ == '__main__':
-    app.run(port=8888, debug='true')
+    app.run(port=8080, debug='true')
