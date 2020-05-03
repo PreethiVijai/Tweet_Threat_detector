@@ -25,5 +25,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:8889"
+  "proxy": "http://accesser:8080"
 }
