@@ -18,7 +18,7 @@ export const register = newUser => {
 }
 
 export const login = user => {
-    axios.defaults.baseURL = 'accesser:8000/';
+    //axios.defaults.baseURL = 'accesser:8000/';
     console.log('Login Attempted');
   return axios
     .post('users/login', {
