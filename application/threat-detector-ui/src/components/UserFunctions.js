@@ -2,7 +2,7 @@ import axios from 'axios'
 
 
 export const register = newUser => {
-    axios.defaults.baseURL = 'accesser:8000/';
+    axios.defaults.baseURL = 'accesser:8080/';
     console.log('Register Attempted');
   return axios
     .post('users/register', {
