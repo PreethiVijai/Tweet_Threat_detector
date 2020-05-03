@@ -9,13 +9,13 @@ from flask_jwt_extended import (create_access_token)
 app = Flask(__name__)
 
 app.config['MYSQL_USER'] = 'root'
-#app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'Threatdetectordb'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 app.config['JWT_SECRET_KEY'] = 'secret'
-#app.config['MYSQL_HOST'] = 'mysql'
-app.config['MYSQL_PASSWORD'] = 'priyanka'
-app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_HOST'] = 'mysql'
+#app.config['MYSQL_PASSWORD'] = 'priyanka'
+#app.config['MYSQL_HOST'] = 'localhost'
 
 mysql = MySQL(app)
 bcrypt = Bcrypt(app)
@@ -24,6 +24,8 @@ CORS(app)
 
 @app.route('/users/register', methods=['POST'])
 def register():
+    print(request)
+
     cur = mysql.connection.cursor()
     first_name = request.get_json()['first_name']
     last_name = request.get_json()['last_name']
@@ -61,6 +63,8 @@ def login():
     password = request.get_json()['password']
     result = ""
 
+    print(request)
+
     cur.execute("SELECT * FROM users where email = '" + str(email) + "'")
     rv = cur.fetchone()
 
@@ -74,6 +78,8 @@ def login():
 
 @app.route('/users/tweets', methods=['POST'])
 def tweets():
+    print(request)
+
     cur = mysql.connection.cursor()
 
     cur.execute("SELECT * FROM threats  LIMIT 100 " )

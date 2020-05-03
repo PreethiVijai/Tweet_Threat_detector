@@ -15,5 +15,5 @@ RUN ls src
 RUN npm install -D extract-text-webpack-plugin@next
 RUN npm run build
 # Expose port to run on
-EXPOSE 80
+EXPOSE 3000
 CMD npm start

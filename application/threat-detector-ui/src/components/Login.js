@@ -33,6 +33,7 @@ class Login extends Component {
   }
 
   render() {
+      console.log('Rending Login')
     return (
       <div className="container">
         <div className="row">
