@@ -1,6 +1,7 @@
 from typing import Callable
 
 import pika
+import sys
 
 
 class RabbitReceiver:
@@ -30,7 +31,7 @@ class RabbitReceiver:
         try:
             self.receiver_callback(body)
         except:
-            pass
+            print(sys.exc_info())
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
     def start_receiving(self) -> None:

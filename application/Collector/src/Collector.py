@@ -43,6 +43,7 @@ def main(apikey, apisecret, rabbit_host):
 
 
 if __name__ == '__main__':
+    print("launching\n")
     args = parse_args()
     main(args.apikey, args.apisecret, args.rabbit_host)
 
