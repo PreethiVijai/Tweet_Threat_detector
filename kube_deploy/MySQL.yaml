@@ -1,3 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-config
+  labels:
+    app: mysql
+data:
+  default_auth: |
+    [mysqld]
+    default_authentication_plugin=mysql_native_password
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -20,7 +31,16 @@ spec:
           value: "yes"
         image: mysql:8.0
         name: mysql
+        volumeMounts:
+        - name: mysql-config-volume
+          mountPath: /etc/mysql/conf.d/default_auth.cnf
+          subPath: default_auth
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
       volumes:
         - name: mysql-persistent-storage
           persistentVolumeClaim:
             claimName: mysql-volumeclaim
+        - name: mysql-config-volume
+          configMap:
+            name: mysql-config
