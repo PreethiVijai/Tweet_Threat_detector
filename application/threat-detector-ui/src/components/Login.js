@@ -29,6 +29,9 @@ class Login extends Component {
       if (!res.error) {
         this.props.history.push(`/profile`)
       }
+      else{
+        console.log("Error in login")
+      }
     })
   }
 
