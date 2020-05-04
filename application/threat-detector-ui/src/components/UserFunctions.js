@@ -2,7 +2,7 @@ import axios from 'axios'
 
 
 export const register = newUser => {
-    axios.defaults.baseURL = 'accesser:8080/';
+    //axios.defaults.baseURL = 'accesser:8080/';
     console.log('Register Attempted');
   return axios
     .post('users/register', {
@@ -18,7 +18,7 @@ export const register = newUser => {
 }
 
 export const login = user => {
-  axios.defaults.baseURL = 'accesser:8080/';
+  //axios.defaults.baseURL = 'accesser:8080/';
   console.log('Login Attempted');
   return axios
     .post('users/login', {
@@ -36,7 +36,7 @@ export const login = user => {
 }
 
 export const tweets = user => {
-    axios.defaults.baseURL = 'accesser:8080/';
+    //axios.defaults.baseURL = 'accesser:8080/';
   return axios
     .post('users/tweets', )
     .then(response => {
@@ -52,7 +52,7 @@ export const tweets = user => {
 }
 
 export const getProfile = user => {
-    axios.defaults.baseURL = 'accesser:8080/';
+    //axios.defaults.baseURL = 'accesser:8080/';
   return axios
     .get('users/profile', {
       //headers: { Authorization: ` ${this.getToken()}` }
