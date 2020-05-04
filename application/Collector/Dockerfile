@@ -15,6 +15,7 @@ ENV APISECRETE ${APISECRET}
 # RUN echo $APISECRET >> /Collector/apisecret.txt
 # Expose port to run on
 EXPOSE 8080
+ENV PYTHONUNBUFFERED 1
 # TODO: Figure out how to give the Collector access to our Twitter API key and secret, currently
 # the Collector expects that key and secret to be passed as command-line arguments. The
 # Collector will not run until these arguments are being passed in.
