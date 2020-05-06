@@ -13,7 +13,7 @@ class App extends Component {
   tweet_arr :[],
   location: '',
   tweet_type:[],
-  tweet_data:[],
+  tweet_data:{},
   tweet_location : []
 }
 }
@@ -24,6 +24,7 @@ class App extends Component {
     Object.keys(obj).map((index) => {
       if(this.state.tweet_location_abbr[index]==event.target.dataset.name){
         alert(this.state.tweet_data[index])
+        console.log("test1")
         console.log(this.state.tweet_data[index].data)
       }
     })
