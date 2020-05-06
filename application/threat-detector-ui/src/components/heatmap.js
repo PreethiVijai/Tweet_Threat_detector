@@ -28,7 +28,8 @@ class App extends Component {
 
         const tweet_arr = this.state.tweet_data[index]
         Object.keys(tweet_arr).map((i) =>{
-          console.log(this.state.tweet_data[i])
+          console.log(tweet_arr[i])
+          console.log("preethi")
         })
       }
     })
