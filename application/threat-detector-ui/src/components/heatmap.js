@@ -19,7 +19,13 @@ class App extends Component {
 }
 
   mapHandler = (event) => {
-    alert(event.target.dataset.name);
+    /*alert(event.target.dataset.name);*/
+    const obj=this.state.tweet_arr
+    Object.keys(obj).map((index) => {
+      if(this.state.tweet_location_abbr[index]==event.target.dataset.name){
+        alert(this.state.tweet_data[index])
+      }
+    })
   };
   mapStates=(event)=>{
     const us_state_abbrev = {
