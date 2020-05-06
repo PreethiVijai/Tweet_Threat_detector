@@ -5,8 +5,8 @@ metadata:
 spec:
   ports:
   - protocol: TCP
-    port: 8000
-    targetPort: 8000
+    port: 3306
+    targetPort: 3306
   selector:
     app: mysql
   type: ClusterIP

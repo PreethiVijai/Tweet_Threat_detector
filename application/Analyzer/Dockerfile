@@ -9,4 +9,5 @@ RUN python3 -m pip install -r /Analyzer/requirements.txt
 ADD src/* /Analyzer/
 # Expose port to run on
 EXPOSE 8079
-CMD python3 Analyzer.py rabbitmq
+ENV PYTHONUNBUFFERED 1
+CMD python3 Analyzer.py rabbitmq mysql

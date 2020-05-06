@@ -1,6 +1,7 @@
 from typing import Callable
 
 import pika
+import sys
 
 
 class RabbitReceiver:
@@ -27,7 +28,10 @@ class RabbitReceiver:
         self.channel.queue_declare(queue=self.queue_name, durable=True)
 
     def callback(self, ch, method, properties, body) -> None:
-        self.receiver_callback(body)
+        try:
+            self.receiver_callback(body)
+        except:
+            print(sys.exc_info())
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
     def start_receiving(self) -> None:

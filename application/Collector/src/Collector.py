@@ -14,6 +14,9 @@ def parse_args():
 
 
 def main(apikey, apisecret, rabbit_host):
+    #apikey = get_file_conents(apikey)
+    #apisecret = get_file_conents(apisecret)
+
     # Prepare Twitter and RabbitMQ connections
     api = API(apikey, apisecret, rabbit_host)
     api.get_oauth2_bearer_token()
@@ -40,6 +43,7 @@ def main(apikey, apisecret, rabbit_host):
 
 
 if __name__ == '__main__':
+    print("launching\n")
     args = parse_args()
     main(args.apikey, args.apisecret, args.rabbit_host)
 
