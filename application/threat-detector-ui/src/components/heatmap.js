@@ -23,7 +23,8 @@ class App extends Component {
     const obj=this.state.tweet_arr
     Object.keys(obj).map((index) => {
       if(this.state.tweet_location_abbr[index]==event.target.dataset.name){
-        alert(this.state.tweet_data[index].text)
+        alert(this.state.tweet_data[index])
+        console.log(this.state.tweet_data[index][0])
       }
     })
   };
