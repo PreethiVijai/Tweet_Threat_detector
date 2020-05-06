@@ -12,7 +12,6 @@ class Tweets extends Component {
     super(props);
     this.state = {
       tweet_arr :[],
-
       tweet_type:[],
       tweet_location:[],
       tweet_data:[],
@@ -36,22 +35,14 @@ class Tweets extends Component {
           this.state.tweet_location[index] = obj[index].location
           this.state.tweet_data[index]=obj[index].tweets
           this.state.tweet_date[index]=obj[index].date
-          /*tweet_heat_map[index][0]=tweet_type[index]
-          tweet_heat_map[index][1]=tweet_location[index]*/
+  
         })
 
-        console.log("date")
-        console.log(this.state.tweet_date.length)
 
       })
 
     }
 
-    handleSearchInputChanges= (e)=> {
-      e.preventDefault()
-      this.setState( {location_srch: e.target.value })
-
-    }
 
 
     render() {
