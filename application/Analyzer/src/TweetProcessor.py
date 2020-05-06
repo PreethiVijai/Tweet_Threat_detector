@@ -10,6 +10,7 @@ class TweetProcessor:
 
     # Placeholder Implementation: detects threat if tweet longer then 50 characters
     def process_tweet(self, tweet):
+        print(tweet)
         # Cast tweet bytestring to JSON object
         tweet = json.loads(tweet)
         # No point in detecting a threat if we have no idea where
